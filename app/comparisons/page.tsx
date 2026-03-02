@@ -13,49 +13,54 @@ export default function ComparisonsPage() {
   const codeTools = getToolsByCategory('code').slice(0, 3);
 
   return (
-    <div className="bg-gray-950 min-h-screen">
-      <header className="sticky top-0 z-50 bg-gray-950 bg-opacity-80 backdrop-blur border-b border-gray-800">
-        <div className="container mx-auto px-6 py-4">
-          <Link href="/" className="text-2xl font-bold text-red-400">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <nav className="max-w-7xl mx-auto px-6 py-4">
+          <Link href="/" className="text-2xl font-bold text-[#ff4e64]">
             HauseResource
           </Link>
-        </div>
+        </nav>
       </header>
 
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-950">
-        <div className="container mx-auto px-6">
-          <Link href="/" className="inline-flex items-center text-red-400 hover:text-red-300 mb-6">
+      {/* Hero Section */}
+      <section className="px-6 py-16 md:py-20 bg-gradient-to-br from-white via-white to-gray-50 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto">
+          <Link href="/" className="inline-flex items-center text-[#ff4e64] hover:text-[#ff3a52] mb-6 text-sm font-semibold transition-colors">
             ← Back to Home
           </Link>
-          <h1 className="text-5xl font-black mb-4">Tool Comparisons</h1>
-          <p className="text-xl text-gray-400 max-w-2xl">
+          <h1 className="section-title text-4xl md:text-5xl mb-4 leading-tight">
+            Tool Comparisons
+          </h1>
+          <p className="section-subtitle text-base md:text-lg max-w-2xl">
             Compare tools side-by-side to find what works best for your needs.
           </p>
         </div>
       </section>
 
-      <section className="container mx-auto px-6 py-20">
+      {/* Comparisons */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
         {/* Image Gen Comparison */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold mb-8">Image Generation Tools</h2>
-          <div className="overflow-x-auto bg-gray-900 rounded-lg border border-gray-800">
-            <table className="w-full text-sm">
+        <div className="mb-16">
+          <h2 className="section-title text-2xl md:text-3xl mb-6">Image Generation Tools</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-800 bg-gray-800">
-                  <th className="text-left py-4 px-4 font-bold">Tool</th>
-                  <th className="text-left py-4 px-4 font-bold">Price</th>
-                  <th className="text-left py-4 px-4 font-bold">Best For</th>
-                  <th className="text-left py-4 px-4 font-bold">Free Trial</th>
-                  <th className="text-center py-4 px-4 font-bold">Commission</th>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Tool</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Price</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Best For</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Free Trial</th>
+                  <th className="text-center py-4 px-4 font-semibold text-gray-900">Commission</th>
                 </tr>
               </thead>
               <tbody>
                 {imageGenTools.map((tool) => (
-                  <tr key={tool.id} className="border-b border-gray-800 hover:bg-gray-800 transition">
-                    <td className="py-4 px-4 font-semibold text-white">{tool.name}</td>
-                    <td className="py-4 px-4 text-gray-300">{tool.pricing}</td>
-                    <td className="py-4 px-4 text-gray-300">{tool.bestFor.join(', ')}</td>
-                    <td className="py-4 px-4 text-gray-300">
+                  <tr key={tool.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td className="py-4 px-4 font-semibold text-gray-900">{tool.name}</td>
+                    <td className="py-4 px-4 text-gray-700">{tool.pricing}</td>
+                    <td className="py-4 px-4 text-gray-700">{tool.bestFor.join(', ')}</td>
+                    <td className="py-4 px-4 text-gray-700">
                       {tool.name === 'DALL-E 3' || tool.name === 'Adobe Firefly' ? '✅' : '🔒'}
                     </td>
                     <td className="py-4 px-4 text-center">
@@ -63,7 +68,7 @@ export default function ComparisonsPage() {
                         href={tool.affiliateUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-red-400 hover:text-red-300 font-semibold"
+                        className="text-[#ff4e64] hover:text-[#ff3a52] font-semibold transition-colors"
                       >
                         {tool.commissionRate}
                       </a>
@@ -76,30 +81,30 @@ export default function ComparisonsPage() {
         </div>
 
         {/* Writing Comparison */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold mb-8">Writing & Content Tools</h2>
-          <div className="overflow-x-auto bg-gray-900 rounded-lg border border-gray-800">
-            <table className="w-full text-sm">
+        <div className="mb-16 border-t border-gray-200 pt-16">
+          <h2 className="section-title text-2xl md:text-3xl mb-6">Writing & Content Tools</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-800 bg-gray-800">
-                  <th className="text-left py-4 px-4 font-bold">Tool</th>
-                  <th className="text-left py-4 px-4 font-bold">Price</th>
-                  <th className="text-left py-4 px-4 font-bold">Best For</th>
-                  <th className="text-center py-4 px-4 font-bold">Commission</th>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Tool</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Price</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Best For</th>
+                  <th className="text-center py-4 px-4 font-semibold text-gray-900">Commission</th>
                 </tr>
               </thead>
               <tbody>
                 {writingTools.map((tool) => (
-                  <tr key={tool.id} className="border-b border-gray-800 hover:bg-gray-800 transition">
-                    <td className="py-4 px-4 font-semibold text-white">{tool.name}</td>
-                    <td className="py-4 px-4 text-gray-300">{tool.pricing}</td>
-                    <td className="py-4 px-4 text-gray-300">{tool.bestFor[0]}</td>
+                  <tr key={tool.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td className="py-4 px-4 font-semibold text-gray-900">{tool.name}</td>
+                    <td className="py-4 px-4 text-gray-700">{tool.pricing}</td>
+                    <td className="py-4 px-4 text-gray-700">{tool.bestFor[0]}</td>
                     <td className="py-4 px-4 text-center">
                       <a
                         href={tool.affiliateUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-red-400 hover:text-red-300 font-semibold"
+                        className="text-[#ff4e64] hover:text-[#ff3a52] font-semibold transition-colors"
                       >
                         {tool.commissionRate}
                       </a>
@@ -112,30 +117,30 @@ export default function ComparisonsPage() {
         </div>
 
         {/* Video Comparison */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold mb-8">Video & Audio Tools</h2>
-          <div className="overflow-x-auto bg-gray-900 rounded-lg border border-gray-800">
-            <table className="w-full text-sm">
+        <div className="mb-16 border-t border-gray-200 pt-16">
+          <h2 className="section-title text-2xl md:text-3xl mb-6">Video & Audio Tools</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-800 bg-gray-800">
-                  <th className="text-left py-4 px-4 font-bold">Tool</th>
-                  <th className="text-left py-4 px-4 font-bold">Price</th>
-                  <th className="text-left py-4 px-4 font-bold">Best For</th>
-                  <th className="text-center py-4 px-4 font-bold">Commission</th>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Tool</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Price</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Best For</th>
+                  <th className="text-center py-4 px-4 font-semibold text-gray-900">Commission</th>
                 </tr>
               </thead>
               <tbody>
                 {videoTools.map((tool) => (
-                  <tr key={tool.id} className="border-b border-gray-800 hover:bg-gray-800 transition">
-                    <td className="py-4 px-4 font-semibold text-white">{tool.name}</td>
-                    <td className="py-4 px-4 text-gray-300">{tool.pricing}</td>
-                    <td className="py-4 px-4 text-gray-300">{tool.bestFor[0]}</td>
+                  <tr key={tool.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td className="py-4 px-4 font-semibold text-gray-900">{tool.name}</td>
+                    <td className="py-4 px-4 text-gray-700">{tool.pricing}</td>
+                    <td className="py-4 px-4 text-gray-700">{tool.bestFor[0]}</td>
                     <td className="py-4 px-4 text-center">
                       <a
                         href={tool.affiliateUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-red-400 hover:text-red-300 font-semibold"
+                        className="text-[#ff4e64] hover:text-[#ff3a52] font-semibold transition-colors"
                       >
                         {tool.commissionRate}
                       </a>
@@ -148,30 +153,30 @@ export default function ComparisonsPage() {
         </div>
 
         {/* Code Comparison */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold mb-8">Code & Automation Tools</h2>
-          <div className="overflow-x-auto bg-gray-900 rounded-lg border border-gray-800">
-            <table className="w-full text-sm">
+        <div className="mb-16 border-t border-gray-200 pt-16">
+          <h2 className="section-title text-2xl md:text-3xl mb-6">Code & Automation Tools</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-800 bg-gray-800">
-                  <th className="text-left py-4 px-4 font-bold">Tool</th>
-                  <th className="text-left py-4 px-4 font-bold">Price</th>
-                  <th className="text-left py-4 px-4 font-bold">Best For</th>
-                  <th className="text-center py-4 px-4 font-bold">Commission</th>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Tool</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Price</th>
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Best For</th>
+                  <th className="text-center py-4 px-4 font-semibold text-gray-900">Commission</th>
                 </tr>
               </thead>
               <tbody>
                 {codeTools.map((tool) => (
-                  <tr key={tool.id} className="border-b border-gray-800 hover:bg-gray-800 transition">
-                    <td className="py-4 px-4 font-semibold text-white">{tool.name}</td>
-                    <td className="py-4 px-4 text-gray-300">{tool.pricing}</td>
-                    <td className="py-4 px-4 text-gray-300">{tool.bestFor[0]}</td>
+                  <tr key={tool.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td className="py-4 px-4 font-semibold text-gray-900">{tool.name}</td>
+                    <td className="py-4 px-4 text-gray-700">{tool.pricing}</td>
+                    <td className="py-4 px-4 text-gray-700">{tool.bestFor[0]}</td>
                     <td className="py-4 px-4 text-center">
                       <a
                         href={tool.affiliateUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-red-400 hover:text-red-300 font-semibold"
+                        className="text-[#ff4e64] hover:text-[#ff3a52] font-semibold transition-colors"
                       >
                         {tool.commissionRate}
                       </a>
@@ -183,21 +188,21 @@ export default function ComparisonsPage() {
           </div>
         </div>
 
-        <div className="bg-gray-900 border border-gray-800 rounded-lg p-8 text-center">
-          <p className="text-gray-400 mb-4">
+        {/* CTA */}
+        <div className="bg-gray-50 border border-gray-200 rounded-2xl p-12 text-center border-t border-gray-200 pt-16 mt-16">
+          <p className="text-gray-700 mb-6 text-base">
             Want to see more tools? Check out the individual category pages for the complete list.
           </p>
-          <Link href="/" className="inline-block px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded transition">
+          <Link href="/" className="btn">
             Browse All Categories
           </Link>
         </div>
       </section>
 
-      <footer className="bg-gray-900 border-t border-gray-800 mt-20">
-        <div className="container mx-auto px-6 py-12">
-          <p className="text-center text-gray-500 text-sm">
-            💰 We earn commission on affiliate links | © 2026 Hause Collective
-          </p>
+      {/* Footer */}
+      <footer className="border-t border-gray-200 bg-gray-50 mt-20">
+        <div className="max-w-7xl mx-auto px-6 py-12 text-center text-gray-600 text-sm">
+          <p>💰 We earn commission on affiliate links | © 2026 Hause Collective</p>
         </div>
       </footer>
     </div>
