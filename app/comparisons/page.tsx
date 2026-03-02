@@ -10,18 +10,34 @@ export const metadata = {
 
 export default function ComparisonsPage() {
   const imageGenTools = getToolsByCategory('image-gen');
-  const writingTools = getToolsByCategory('writing').slice(0, 3);
-  const videoTools = getToolsByCategory('video').slice(0, 3);
-  const codeTools = getToolsByCategory('code').slice(0, 3);
+  const writingTools = getToolsByCategory('writing');
+  const videoTools = getToolsByCategory('video');
+  const codeTools = getToolsByCategory('code');
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-border">
-        <nav className="max-w-7xl mx-auto px-6 py-4">
+        <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold text-primary">
             HauseResource
           </Link>
+          <div className="hidden md:flex gap-8">
+            <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <Link href="/comparisons" className="text-sm font-medium text-foreground transition-colors">
+              Comparisons
+            </Link>
+            <a
+              href="https://www.youtube.com/@HauseCollective"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              YouTube
+            </a>
+          </div>
         </nav>
       </header>
 

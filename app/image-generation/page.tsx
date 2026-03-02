@@ -1,6 +1,8 @@
 import { ToolCard } from '@/components/ToolCard';
 import { getToolsByCategory } from '@/lib/tools';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 export const metadata = {
   title: 'Image Generation Tools | HauseResource',
@@ -11,31 +13,53 @@ export default function ImageGenerationPage() {
   const tools = getToolsByCategory('image-gen');
 
   return (
-    <div className="bg-gray-950 min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-gray-950 bg-opacity-80 backdrop-blur border-b border-gray-800">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-red-400">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-border">
+        <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <Link href="/" className="text-2xl font-bold text-primary">
             HauseResource
           </Link>
-        </div>
+          <div className="hidden md:flex gap-8">
+            <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <Link href="/comparisons" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Comparisons
+            </Link>
+            <a
+              href="https://www.youtube.com/@HauseCollective"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              YouTube
+            </a>
+          </div>
+        </nav>
       </header>
 
-      {/* Hero */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-950">
-        <div className="container mx-auto px-6">
-          <Link href="/" className="inline-flex items-center text-red-400 hover:text-red-300 mb-6">
+      {/* Hero Section */}
+      <section className="relative px-6 py-20 md:py-24 bg-gradient-to-br from-background via-background to-secondary border-b border-border">
+        <div className="max-w-7xl mx-auto">
+          <Link href="/" className="inline-flex items-center text-primary hover:text-primary/80 mb-6 text-sm font-semibold transition-colors">
             ← Back to Home
           </Link>
-          <h1 className="text-5xl font-black mb-4">Image Generation Tools</h1>
-          <p className="text-xl text-gray-400 max-w-2xl">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
+            Image Generation Tools
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl">
             Create stunning visuals with AI. Perfect for designers, marketers, and content creators.
           </p>
         </div>
       </section>
 
       {/* Tools Grid */}
-      <section className="container mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-foreground mb-3">Featured Tools</h2>
+          <p className="text-muted-foreground">Curated image generation tools we recommend</p>
+        </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tools.map((tool) => (
             <ToolCard key={tool.id} tool={tool} />
@@ -43,41 +67,69 @@ export default function ImageGenerationPage() {
         </div>
       </section>
 
-      {/* Comparison */}
-      <section className="container mx-auto px-6 py-20 border-t border-gray-800">
-        <h2 className="text-3xl font-bold mb-12">Quick Comparison</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-800">
-                <th className="text-left py-4 px-4 font-bold">Tool</th>
-                <th className="text-left py-4 px-4 font-bold">Price</th>
-                <th className="text-left py-4 px-4 font-bold">Best For</th>
-                <th className="text-left py-4 px-4 font-bold">Commission</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tools.map((tool) => (
-                <tr key={tool.id} className="border-b border-gray-800 hover:bg-gray-900">
-                  <td className="py-4 px-4 font-semibold">{tool.name}</td>
-                  <td className="py-4 px-4 text-gray-300">{tool.pricing}</td>
-                  <td className="py-4 px-4 text-gray-300">{tool.bestFor[0]}</td>
-                  <td className="py-4 px-4">
-                    <span className="text-red-400 font-semibold">{tool.commissionRate}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Comparison Table */}
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-foreground mb-3">Quick Comparison</h2>
+          <p className="text-muted-foreground">Side-by-side comparison of image generation tools</p>
         </div>
+        <Card>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border bg-secondary">
+                    <th className="text-left py-4 px-4 font-semibold text-foreground">Tool</th>
+                    <th className="text-left py-4 px-4 font-semibold text-foreground">Price</th>
+                    <th className="text-left py-4 px-4 font-semibold text-foreground">Best For</th>
+                    <th className="text-center py-4 px-4 font-semibold text-foreground">Commission</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tools.map((tool) => (
+                    <tr key={tool.id} className="border-b border-border hover:bg-secondary/50 transition-colors">
+                      <td className="py-4 px-4 font-semibold text-foreground">{tool.name}</td>
+                      <td className="py-4 px-4 text-muted-foreground">{tool.pricing}</td>
+                      <td className="py-4 px-4 text-muted-foreground">{tool.bestFor.join(', ')}</td>
+                      <td className="py-4 px-4 text-center">
+                        <a
+                          href={tool.affiliateUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:text-primary/80 font-semibold transition-colors"
+                        >
+                          {tool.commissionRate}
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* CTA Section */}
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+        <Card className="bg-secondary">
+          <CardContent className="pt-12 text-center">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Browse all categories</h2>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Explore tools for writing, video, code, and automation.
+            </p>
+            <Link href="/comparisons">
+              <Button size="lg">View All Tools</Button>
+            </Link>
+          </CardContent>
+        </Card>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 border-t border-gray-800 mt-20">
-        <div className="container mx-auto px-6 py-12">
-          <p className="text-center text-gray-500 text-sm">
-            💰 We earn commission on affiliate links | © 2026 Hause Collective
-          </p>
+      <footer className="border-t border-border bg-secondary py-12">
+        <div className="max-w-7xl mx-auto px-6 text-center text-muted-foreground text-sm">
+          <p>📢 <span className="font-semibold text-foreground">Affiliate Transparency:</span> We earn commission on affiliate links. This doesn't affect your pricing.</p>
+          <p className="mt-2">Made by <span className="font-semibold text-foreground">Hause Collective</span></p>
         </div>
       </footer>
     </div>
