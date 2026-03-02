@@ -8,17 +8,17 @@ interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   ({ variant = 'default', size = 'sm', children, className = '', ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center rounded-full font-medium transition-smooth whitespace-nowrap';
+    const baseStyles = 'inline-flex items-center rounded-full font-semibold transition-all duration-200 whitespace-nowrap border';
 
     const variants = {
-      default: 'bg-surface border border-border text-foreground-muted',
-      primary: 'bg-primary/10 border border-primary/30 text-primary',
-      secondary: 'bg-primary/5 border border-border text-foreground-dim',
+      default: 'bg-surface border-border text-foreground-muted hover:border-foreground/50',
+      primary: 'bg-primary/10 border-primary/30 text-primary hover:bg-primary/20',
+      secondary: 'bg-surface/50 border-border/60 text-foreground-dim hover:border-primary/40 hover:bg-surface',
     };
 
     const sizes = {
-      sm: 'px-2.5 py-1 text-xs',
-      md: 'px-3 py-1.5 text-sm',
+      sm: 'px-3 py-1.5 text-xs',
+      md: 'px-4 py-2 text-sm',
     };
 
     return (
