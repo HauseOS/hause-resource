@@ -17,13 +17,13 @@ export function CategoryCard({ id, name, description, icon }: CategoryCardProps)
 
   return (
     <Link href={`/${slugs[id]}`}>
-      <div className="rounded-lg border border-gray-800 bg-gray-900 p-8 hover:border-red-500 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 cursor-pointer group">
+      <div className="rounded-lg border border-gray-200 bg-white p-8 hover:border-[#ff4e64] hover:shadow-md transition-all duration-300 cursor-pointer group">
         <div className="text-4xl mb-4">{icon}</div>
-        <h3 className="text-xl font-bold text-white group-hover:text-red-400 transition-colors mb-2">
+        <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#ff4e64] transition-colors mb-2">
           {name}
         </h3>
-        <p className="text-gray-400">{description}</p>
-        <p className="text-red-400 text-sm mt-4 group-hover:translate-x-1 transition-transform">
+        <p className="text-gray-600">{description}</p>
+        <p className="text-[#ff4e64] text-sm mt-4 group-hover:translate-x-1 transition-transform font-medium">
           Explore →
         </p>
       </div>

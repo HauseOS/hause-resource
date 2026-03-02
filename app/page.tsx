@@ -19,25 +19,25 @@ export default function Home() {
   const featuredTools = tools.slice(0, 6);
 
   return (
-    <div className="bg-gray-950">
+    <div className="bg-white min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-gray-950 bg-opacity-80 backdrop-blur border-b border-gray-800">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-gray-200">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-red-400">
+          <Link href="/" className="text-2xl font-bold text-[#ff4e64]">
             HauseResource
           </Link>
           <nav className="hidden md:flex gap-8">
-            <Link href="/" className="text-gray-300 hover:text-white transition">
+            <Link href="/" className="text-gray-600 hover:text-[#ff4e64] transition font-medium">
               Home
             </Link>
-            <Link href="/comparisons" className="text-gray-300 hover:text-white transition">
+            <Link href="/comparisons" className="text-gray-600 hover:text-[#ff4e64] transition font-medium">
               Comparisons
             </Link>
             <a
               href="https://www.youtube.com/@HauseCollective"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition"
+              className="text-gray-600 hover:text-[#ff4e64] transition font-medium"
             >
               YouTube
             </a>
@@ -47,10 +47,10 @@ export default function Home() {
 
       {/* Hero */}
       <section className="hero">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900">
           AI Tools for Builders
         </h1>
-        <p className="text-lg md:text-xl text-gray-400 mt-4 max-w-2xl">
+        <p className="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl">
           Curated tools we actually use and recommend. Transparent affiliate links that help us create better content.
         </p>
         <div className="mt-8 flex gap-4 flex-wrap justify-center">
@@ -64,9 +64,9 @@ export default function Home() {
       </section>
 
       {/* Affiliate Disclosure */}
-      <section className="bg-gray-900 border-t border-gray-800">
+      <section className="bg-blue-50 border-t border-gray-200">
         <div className="container mx-auto px-6 py-8">
-          <p className="text-center text-gray-400 text-sm">
+          <p className="text-center text-gray-700 text-sm">
             📢 <strong>Affiliate Transparency:</strong> We earn commission on affiliate links. This doesn't affect your pricing. We only recommend tools we actually believe in.
           </p>
         </div>

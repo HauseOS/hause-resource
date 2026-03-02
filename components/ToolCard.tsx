@@ -3,22 +3,22 @@ import Link from 'next/link';
 
 export function ToolCard({ tool }: { tool: Tool }) {
   return (
-    <div className="group rounded-lg border border-gray-800 bg-gray-900 p-6 hover:border-red-500 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300">
+    <div className="group rounded-lg border border-gray-200 bg-white p-6 hover:border-[#ff4e64] hover:shadow-md transition-all duration-300">
       <div className="mb-4">
-        <h3 className="text-xl font-bold text-white group-hover:text-red-400 transition-colors">
+        <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#ff4e64] transition-colors">
           {tool.name}
         </h3>
-        <p className="text-sm text-gray-400 mt-2">{tool.description}</p>
+        <p className="text-sm text-gray-600 mt-2">{tool.description}</p>
       </div>
 
       <div className="mb-4 space-y-3">
         <div>
-          <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Best For</p>
+          <p className="text-xs uppercase tracking-wide text-gray-500 mb-1 font-semibold">Best For</p>
           <div className="flex flex-wrap gap-2">
             {tool.bestFor.map((use) => (
               <span
                 key={use}
-                className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded"
+                className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
               >
                 {use}
               </span>
@@ -27,11 +27,11 @@ export function ToolCard({ tool }: { tool: Tool }) {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-wide text-gray-500">Pricing</p>
-          <p className="text-sm text-gray-300">{tool.pricing}</p>
+          <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold">Pricing</p>
+          <p className="text-sm text-gray-800">{tool.pricing}</p>
         </div>
 
-        <div className="pt-2 border-t border-gray-800">
+        <div className="pt-2 border-t border-gray-200">
           <p className="text-xs text-gray-500 mb-1">
             Affiliate: {tool.affiliateProgram} ({tool.commissionRate})
           </p>
@@ -42,7 +42,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
         href={tool.affiliateUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block w-full text-center py-2 px-4 bg-red-500 hover:bg-red-600 text-white font-medium rounded transition-colors"
+        className="inline-block w-full text-center py-2 px-4 bg-[#ff4e64] hover:bg-[#ff3a52] text-white font-medium rounded-lg transition-colors"
       >
         Learn More
       </Link>
