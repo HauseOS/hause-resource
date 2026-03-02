@@ -52,66 +52,98 @@ export default function Home() {
       <section id="tools" className="px-6 py-20 border-t border-border">
         <div className="max-w-7xl mx-auto space-y-20">
           {/* Image Generation */}
-          <div className="animate-fade-in">
-            <div className="mb-8">
-              <h2 className="text-4xl font-display font-bold mb-3">🎨 Image Generation</h2>
+          <div className="animate-fade-in group/section">
+            <div className="mb-8 transition-all duration-300">
+              <h2 className="text-4xl font-display font-bold mb-3 group-hover/section:text-primary transition-colors duration-300">
+                🎨 Image Generation
+              </h2>
               <p className="text-foreground-dim">Create stunning visuals with AI-powered image generators</p>
             </div>
             <div className="grid md:grid-cols-3 gap-6 mb-6">
-              {imageGenTools.map((tool) => (
-                <ToolCard key={tool.id} tool={tool} variant="tile" />
+              {imageGenTools.map((tool, idx) => (
+                <div key={tool.id} style={{ animation: `fade-in 0.5s ease-out ${idx * 0.1}s both` }}>
+                  <ToolCard tool={tool} variant="tile" />
+                </div>
               ))}
             </div>
-            <Link href="/image-generation" className="inline-block text-primary hover:text-primary-hover transition-colors font-semibold text-sm">
-              View all image generation tools →
+            <Link 
+              href="/image-generation" 
+              className="inline-block text-primary hover:text-primary-hover transition-all duration-200 font-semibold text-sm group/link hover:translate-x-1"
+            >
+              View all image generation tools 
+              <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1">→</span>
             </Link>
           </div>
 
           {/* Writing */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <div className="mb-8">
-              <h2 className="text-4xl font-display font-bold mb-3">✍️ Writing & Content</h2>
+          <div className="animate-fade-in group/section" style={{ animationDelay: '0.1s' }}>
+            <div className="mb-8 transition-all duration-300">
+              <h2 className="text-4xl font-display font-bold mb-3 group-hover/section:text-primary transition-colors duration-300">
+                ✍️ Writing & Content
+              </h2>
               <p className="text-foreground-dim">AI-powered writing tools for creators and builders</p>
             </div>
             <div className="grid md:grid-cols-3 gap-6 mb-6">
-              {writingTools.map((tool) => (
-                <ToolCard key={tool.id} tool={tool} variant="tile" />
+              {writingTools.map((tool, idx) => (
+                <div key={tool.id} style={{ animation: `fade-in 0.5s ease-out ${0.1 + idx * 0.1}s both` }}>
+                  <ToolCard tool={tool} variant="tile" />
+                </div>
               ))}
             </div>
-            <Link href="/writing-content" className="inline-block text-primary hover:text-primary-hover transition-colors font-semibold text-sm">
-              View all writing tools →
+            <Link 
+              href="/writing-content" 
+              className="inline-block text-primary hover:text-primary-hover transition-all duration-200 font-semibold text-sm group/link hover:translate-x-1"
+            >
+              View all writing tools 
+              <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1">→</span>
             </Link>
           </div>
 
           {/* Video */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="mb-8">
-              <h2 className="text-4xl font-display font-bold mb-3">🎬 Video & Audio</h2>
+          <div className="animate-fade-in group/section" style={{ animationDelay: '0.2s' }}>
+            <div className="mb-8 transition-all duration-300">
+              <h2 className="text-4xl font-display font-bold mb-3 group-hover/section:text-primary transition-colors duration-300">
+                🎬 Video & Audio
+              </h2>
               <p className="text-foreground-dim">Professional video and audio production with AI</p>
             </div>
             <div className="grid md:grid-cols-3 gap-6 mb-6">
-              {videoTools.map((tool) => (
-                <ToolCard key={tool.id} tool={tool} variant="tile" />
+              {videoTools.map((tool, idx) => (
+                <div key={tool.id} style={{ animation: `fade-in 0.5s ease-out ${0.2 + idx * 0.1}s both` }}>
+                  <ToolCard tool={tool} variant="tile" />
+                </div>
               ))}
             </div>
-            <Link href="/video-audio" className="inline-block text-primary hover:text-primary-hover transition-colors font-semibold text-sm">
-              View all video tools →
+            <Link 
+              href="/video-audio" 
+              className="inline-block text-primary hover:text-primary-hover transition-all duration-200 font-semibold text-sm group/link hover:translate-x-1"
+            >
+              View all video tools 
+              <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1">→</span>
             </Link>
           </div>
 
           {/* Code & Automation */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <div className="mb-8">
-              <h2 className="text-4xl font-display font-bold mb-3">💻 Code & Automation</h2>
+          <div className="animate-fade-in group/section" style={{ animationDelay: '0.3s' }}>
+            <div className="mb-8 transition-all duration-300">
+              <h2 className="text-4xl font-display font-bold mb-3 group-hover/section:text-primary transition-colors duration-300">
+                💻 Code & Automation
+              </h2>
               <p className="text-foreground-dim">Build faster with AI-powered development tools</p>
             </div>
             <div className="grid md:grid-cols-3 gap-6 mb-6">
-              {codeTools.map((tool) => (
-                <ToolCard key={tool.id} tool={tool} variant="tile" />
+              {codeTools.map((tool, idx) => (
+                <div key={tool.id} style={{ animation: `fade-in 0.5s ease-out ${0.3 + idx * 0.1}s both` }}>
+                  <ToolCard tool={tool} variant="tile" />
+                </div>
               ))}
             </div>
-            <Link href="/code-automation" className="inline-block text-primary hover:text-primary-hover transition-colors font-semibold text-sm">
-              View all code tools →
+            <Link 
+              href="/code-automation" 
+              className="inline-block text-primary hover:text-primary-hover transition-all duration-200 font-semibold text-sm group/link hover:translate-x-1"
+            >
+              View all code tools 
+              <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1">→</span>
             </Link>
           </div>
         </div>

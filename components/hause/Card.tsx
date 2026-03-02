@@ -8,14 +8,14 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ children, hoverable = false, interactive = false, className = '', ...props }, ref) => {
-    const baseStyles = 'rounded-lg border border-border bg-surface transition-smooth';
+    const baseStyles = 'rounded-lg border border-border bg-surface transition-all duration-300 overflow-hidden relative';
     
     const hoverStyles = hoverable 
-      ? 'hover:border-primary hover:shadow-glow hover:bg-surface-hover' 
+      ? 'hover:border-primary/40 hover:shadow-glow-md hover:bg-surface-hover hover:translate-y-[-2px]' 
       : '';
     
     const interactiveStyles = interactive
-      ? 'cursor-pointer active:scale-95'
+      ? 'cursor-pointer active:scale-95 active:shadow-glow'
       : '';
 
     return (
@@ -24,6 +24,8 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         className={`${baseStyles} ${hoverStyles} ${interactiveStyles} ${className}`}
         {...props}
       >
+        {/* Subtle border shine on hover */}
+        <div className="absolute inset-0 border border-primary/0 rounded-lg hover:border-primary/20 transition-colors duration-300 pointer-events-none" />
         {children}
       </div>
     );
