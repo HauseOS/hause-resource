@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Nav } from '@/components/nav';
+import { youtubeTldr } from '@/data/copy';
 
 export const metadata = {
   title: 'Running a YouTube Channel with 2 People — HauseResource',
@@ -40,6 +41,23 @@ export default function YouTubeGuide() {
           <div className="article-header-meta">
             <span>Written by Hause Collective</span>
             <span>35K subscribers, 2-person team</span>
+          </div>
+
+          {/* TL;DR card */}
+          <div style={{
+            background: 'rgba(255,78,100,0.06)',
+            border: '1px solid rgba(255,78,100,0.15)',
+            borderRadius: '10px',
+            padding: '20px 24px',
+            marginTop: '28px',
+            maxWidth: '620px'
+          }}>
+            <div style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'var(--brand)', marginBottom: '10px' }}>
+              TL;DR
+            </div>
+            <div style={{ fontSize: '14px', lineHeight: 1.7, color: 'var(--fg)', whiteSpace: 'pre-line' as const }}>
+              {youtubeTldr}
+            </div>
           </div>
         </div>
 

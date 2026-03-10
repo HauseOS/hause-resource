@@ -14,11 +14,10 @@ export function Nav() {
         </Link>
         <div className="nav-right">
           <div className="nav-links">
-            <a href="#guides">Guides</a>
-            <a href="#tools">Tools</a>
-            <a href="#merchants">About</a>
+            <a href="/#guides">Guides</a>
+            <a href="/#tools">Tools</a>
+            <a href="https://hause.co" target="_blank" rel="noopener">Hause.co</a>
           </div>
-          <a href="#merchants" className="nav-for-merchants">For merchants →</a>
         </div>
       </div>
     </nav>

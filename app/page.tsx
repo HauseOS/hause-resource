@@ -1,7 +1,18 @@
 import Link from 'next/link';
 import { Nav } from '@/components/nav';
+import { tools } from '@/data/tools';
+import { guides } from '@/data/guides';
+import { heroHeadline, heroSub, searchPlaceholder, merchantCtaHeadline, merchantCtaDescription } from '@/data/copy';
 
 export default function Home() {
+  const liveGuides = guides.filter(g => g.status === 'live');
+  const comingSoonGuides = guides.filter(g => g.status === 'coming-soon');
+  const hausePickTools = tools.filter(t => t.hausePick);
+  const hausePickTotal = hausePickTools.reduce((sum, t) => sum + t.pricingNumeric, 0);
+
+  // Only show category tabs that have live guides
+  const liveCategories = [...new Set(liveGuides.map(g => g.category))];
+
   return (
     <>
       <Nav />
@@ -10,13 +21,14 @@ export default function Home() {
       <div className="hero">
         <div className="hero-top">
           <h1 className="hero-headline">
-            The stack for<br />
-            <em>lean creative</em> businesses.
+            {heroHeadline.split('.').filter(Boolean).map((part, i) => (
+              <span key={i}>{i === 0 ? part.trim() : <><br /><em>{part.trim()}</em></>}{'.'}</span>
+            ))}
           </h1>
           <p className="hero-sub">
-            Curated guides and honest tool picks —<br />
-            from a team that runs one.<br />
-            No fluff. Just what works.
+            {heroSub.split('\n').map((line, i) => (
+              <span key={i}>{line}{i === 0 && <br />}</span>
+            ))}
           </p>
         </div>
         <div className="search-wrap">
@@ -24,7 +36,7 @@ export default function Home() {
             <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.4" />
             <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
           </svg>
-          <input className="search-input" type="text" placeholder="Find tools for video editing, newsletters, automation..." />
+          <input className="search-input" type="text" placeholder={searchPlaceholder} />
           <span className="search-hint">⌘K</span>
         </div>
       </div>
@@ -32,21 +44,19 @@ export default function Home() {
       {/* Directory */}
       <div className="directory">
 
-        {/* Filter bar */}
+        {/* Filter bar — only live categories */}
         <div className="filter-bar">
           <div className="filter-tabs">
             <button className="filter-tab active-brand">⭐ Hause Picks</button>
-            <button className="filter-tab active">All guides</button>
-            <button className="filter-tab">Video</button>
-            <button className="filter-tab">Writing</button>
-            <button className="filter-tab">Design</button>
-            <button className="filter-tab">Build</button>
-            <button className="filter-tab">Automate</button>
+            <button className="filter-tab active">All</button>
+            {liveCategories.map(cat => (
+              <button key={cat} className="filter-tab">{cat}</button>
+            ))}
+            <button className="filter-tab" style={{ color: 'var(--muted-2)', cursor: 'default' }}>More coming soon</button>
           </div>
           <div className="filter-right">
             <button className="filter-chip on">Free tier</button>
             <button className="filter-chip">AI-native</button>
-            <button className="filter-chip">Paid only</button>
           </div>
         </div>
 
@@ -54,118 +64,121 @@ export default function Home() {
         <div className="section-divider" id="guides">
           <span className="section-divider-label">Situation guides</span>
           <div className="section-divider-line"></div>
-          <span className="section-divider-count">2 live · 4 coming soon</span>
+          <span className="section-divider-count">{liveGuides.length} live · {comingSoonGuides.length} coming soon</span>
         </div>
 
         <div className="guides-grid">
-          {/* Guide: YouTube */}
-          <Link href="/guides/youtube-channel" className="guide-card">
-            <div className="guide-card-inner">
-              <div className="guide-card-top">
-                <span className="guide-badge badge-video">Video</span>
-                <span className="guide-hause-pick">⭐ Hause Pick</span>
-              </div>
-              <h3>Running a YouTube channel<br />with 2 people</h3>
-              <p>Editing, thumbnails, repurposing, distribution. The full stack for a lean video business — 7 tools, honest tradeoffs.</p>
-              <div className="guide-card-tools">
-                <span className="tool-chip">Descript</span>
-                <span className="tool-chip">Opus Clip</span>
-                <span className="tool-chip">Canva Pro</span>
-                <span className="tool-chip">Claude</span>
-                <span className="tool-chip">+3 more</span>
-              </div>
-            </div>
-            <div className="guide-card-footer">
-              <span className="guide-footer-meta">Updated Mar 2026 · 8 min read</span>
-              <span className="guide-footer-cta">Read guide →</span>
-            </div>
-          </Link>
+          {liveGuides.map(guide => {
+            const guidePath = `/guides/${guide.id}`;
+            const guideTools = guide.toolSlugs
+              .slice(0, 4)
+              .map(slug => tools.find(t => t.id === slug))
+              .filter(Boolean);
+            const extraCount = guide.toolSlugs.length - 4;
 
-          {/* Guide: Newsletter */}
-          <a href="#" className="guide-card">
-            <div className="guide-card-inner">
-              <div className="guide-card-top">
-                <span className="guide-badge badge-writing">Writing</span>
-              </div>
-              <h3>Launching a newsletter<br />from scratch</h3>
-              <p>Platform, writing workflow, design, distribution, monetisation. Zero to 1,000 subscribers — what the stack looks like.</p>
-              <div className="guide-card-tools">
-                <span className="tool-chip">beehiiv</span>
-                <span className="tool-chip">Claude</span>
-                <span className="tool-chip">ConvertKit</span>
-                <span className="tool-chip">+2 more</span>
-              </div>
-            </div>
-            <div className="guide-card-footer">
-              <span className="guide-footer-meta">Updated Mar 2026 · 6 min read</span>
-              <span className="guide-footer-cta">Read guide →</span>
-            </div>
-          </a>
+            return (
+              <Link key={guide.id} href={guidePath} className="guide-card">
+                <div className="guide-card-inner">
+                  <div className="guide-card-top">
+                    <span className={`guide-badge ${guide.categoryClass}`}>{guide.category}</span>
+                    {guide.hausePick && <span className="guide-hause-pick">⭐ Hause Pick</span>}
+                  </div>
+                  <h3>{guide.title}<br />{guide.subtitle}</h3>
+                  <p>{guide.description}</p>
+                  <div className="guide-card-tools">
+                    {guideTools.map(t => (
+                      <span key={t!.id} className="tool-chip">{t!.name}</span>
+                    ))}
+                    {extraCount > 0 && <span className="tool-chip">+{extraCount} more</span>}
+                  </div>
+                </div>
+                <div className="guide-card-footer">
+                  <span className="guide-footer-meta">Updated {guide.updatedDate} · {guide.readTime}</span>
+                  <span className="guide-footer-cta">Read guide →</span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Coming soon */}
-        <div className="coming-strip">
-          <span className="coming-text">
-            Coming soon: <strong>Client creative work without a design team</strong> · <strong>Building a product with no dev team</strong> · <strong>Growing a content brand on social</strong>
-          </span>
-          <button className="coming-notify">Notify me</button>
-        </div>
+        {comingSoonGuides.length > 0 && (
+          <div className="coming-strip">
+            <span className="coming-text">
+              Coming soon: {comingSoonGuides.map((g, i) => (
+                <span key={g.id}><strong>{g.title} {g.subtitle}</strong>{i < comingSoonGuides.length - 1 ? ' · ' : ''}</span>
+              ))}
+            </span>
+            <button className="coming-notify">Notify me</button>
+          </div>
+        )}
 
         {/* Top Tools */}
         <div className="section-divider" id="tools">
           <span className="section-divider-label">Top tools</span>
           <div className="section-divider-line"></div>
-          <span className="section-divider-count">40 tools reviewed</span>
+          <span className="section-divider-count">{tools.length} tools reviewed</span>
+        </div>
+
+        {/* Hause Picks budget bar */}
+        <div className="picks-budget" style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          background: 'rgba(255,78,100,0.06)', border: '1px solid rgba(255,78,100,0.15)',
+          borderRadius: '8px', padding: '10px 16px', marginBottom: '14px', fontSize: '13px'
+        }}>
+          <span style={{ color: 'var(--fg)' }}>
+            ⭐ <strong>{hausePickTools.length} Hause Picks</strong>
+            <span style={{ color: 'var(--muted)', marginLeft: '8px' }}>
+              {hausePickTools.map(t => t.name).join(' + ')}
+            </span>
+          </span>
+          <span style={{ color: 'var(--brand)', fontWeight: 600 }}>
+            = ${hausePickTotal}/month total
+          </span>
         </div>
 
         <div className="tools-grid">
-          {[
-            { emoji: '✂️', name: 'Descript', tag: 'Video', tagClass: 'badge-video', desc: 'Edit video by editing the transcript. The fastest path from raw footage to polished, captioned YouTube content.', price: '$24/mo', pick: true },
-            { emoji: '🎯', name: 'Opus Clip', tag: 'Video', tagClass: 'badge-video', desc: 'Upload a long video, get 5 short clips with captions and a virality score. AI repurposing that actually works.', price: '$15/mo', pick: true },
-            { emoji: '🤖', name: 'Claude', tag: 'Writing', tagClass: 'badge-writing', desc: 'The best AI for long-form content, scripting, and strategic thinking. Our daily driver for everything written.', price: '$20/mo', pick: true },
-            { emoji: '🐝', name: 'beehiiv', tag: 'Newsletter', tagClass: 'badge-writing', desc: 'The newsletter platform built for growth. Monetisation tools and analytics built in from day one.', price: 'Free to start', pick: false },
-            { emoji: '🎨', name: 'Canva Pro', tag: 'Design', tagClass: 'badge-design', desc: 'Thumbnails, social graphics, presentations. Pro is worth it for Brand Kit alone — keeps everything consistent.', price: '$15/mo', pick: false },
-            { emoji: '⚡', name: 'Make', tag: 'Automate', tagClass: 'badge-ops', desc: 'Visual automation builder. More powerful than Zapier per dollar. Build workflows that would take a VA 10 hours/week.', price: 'Free · 1K ops', pick: false },
-            { emoji: '🔍', name: 'Perplexity', tag: 'Research', tagClass: 'badge-writing', desc: 'Search + AI synthesis with real sources cited. Research, competitor analysis, quick facts — faster than Google.', price: '$20/mo', pick: false },
-            { emoji: '📋', name: 'Notion', tag: 'Ops', tagClass: 'badge-ops', desc: 'Content calendar, CRM, SOPs, and knowledge base — all in one place. The operating system for a lean team.', price: 'Free · Plus $10/mo', pick: false },
-            { emoji: '🖼️', name: 'Figma', tag: 'Design', tagClass: 'badge-design', desc: 'The industry standard for product and brand design. Free tier is genuinely generous — good for most solo teams.', price: 'Free · Pro $15/mo', pick: false },
-          ].map((tool) => (
-            <a key={tool.name} href="#" className="tool-card">
+          {tools.map(tool => (
+            <a key={tool.id} href={tool.affiliateUrl || '#'} className="tool-card">
               <div className="tool-card-header">
                 <div className="tool-card-left">
                   <div className="tool-logo">{tool.emoji}</div>
                   <div>
                     <div className="tool-name">{tool.name}</div>
-                    <span className={`tool-tag ${tool.tagClass}`}>{tool.tag}</span>
+                    <span className={`tool-tag ${tool.tagClass}`}>{tool.category}</span>
                   </div>
                 </div>
-                {tool.pick && <span className="pick-star">⭐</span>}
+                {tool.hausePick && <span className="pick-star">⭐</span>}
               </div>
-              <div className="tool-desc">{tool.desc}</div>
+              <div className="tool-desc">{tool.description}</div>
               <div className="tool-card-footer">
-                <span className="tool-price">From <strong>{tool.price}</strong></span>
+                <span className="tool-price">From <strong>{tool.pricing}</strong></span>
                 <span className="tool-arrow">→</span>
               </div>
             </a>
           ))}
         </div>
 
-        <div className="view-all">
-          <a href="#">View all 40 tools →</a>
+        {/* USD note */}
+        <div style={{ textAlign: 'center', marginTop: '12px', fontSize: '11px', color: 'var(--muted-2)' }}>
+          All prices in USD. Most tools available globally.
         </div>
 
       </div>
 
-      {/* Merchants CTA */}
+      {/* Merchants CTA — in footer area only */}
       <div className="bottom-bar" id="merchants">
         <div className="bottom-bar-inner">
           <div>
-            <h2>Want to be featured here?</h2>
-            <p>Editorial placements for tools that fit lean creative businesses. Starting at $300/month.</p>
+            <h2>{merchantCtaHeadline}</h2>
+            <p style={{ maxWidth: '480px' }}>
+              {merchantCtaDescription.split('\n').map((line, i) => (
+                <span key={i}>{line}{i === 0 && <br />}</span>
+              ))}
+            </p>
           </div>
           <div className="bottom-bar-actions">
             <a href="#" className="btn-primary">Partner with us →</a>
-            <a href="#" className="btn-ghost">See how it works</a>
           </div>
         </div>
       </div>
@@ -175,9 +188,9 @@ export default function Home() {
         <div className="footer-left">
           <span className="footer-brand">HauseResource</span>
           <div className="footer-links">
-            <a href="#">Guides</a>
-            <a href="#">Tools</a>
-            <a href="#">For Merchants</a>
+            <a href="#guides">Guides</a>
+            <a href="#tools">Tools</a>
+            <a href="#merchants">For Merchants</a>
             <a href="https://hause.co">Hause.co</a>
           </div>
         </div>
