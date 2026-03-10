@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running a YouTube Channel with 2 People — HauseResource</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #0a0908;
+      --surface:  #100e0c;
+      --card:     #161210;
+      --card-2:   #1b1714;
+      --fg:       #ede8e3;
+      --muted:    #7a7470;
+      --muted-2:  #4a4644;
+      --border:   rgba(255,240,220,0.07);
+      --border-h: rgba(255,240,220,0.14);
+      --brand:    #ff4e64;
+      --brand-h:  #ff6b7d;
+      --brand-glow: rgba(255,78,100,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .display { font-family: 'DM Serif Display', Georgia, serif; }
+
+    /* ── Nav (same as home) ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,9,8,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--brand);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-name { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--fg); }
+    .nav-logo-name span { color: var(--brand); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-cta {
+      font-size: 13px; font-weight: 500;
+      background: var(--brand); color: #fff;
+      border-radius: 6px; padding: 7px 16px; text-decoration: none;
+    }
+
+    /* ── Layout ── */
+    .page { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .breadcrumb {
+      padding: 20px 0; display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--fg); }
+    .breadcrumb-sep { color: var(--muted-2); }
+
+    /* ── Article header ── */
+    .article-header { padding: 40px 0 48px; border-bottom: 1px solid var(--border); }
+    .article-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .meta-badge {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 4px;
+      background: rgba(255,78,100,0.12); color: var(--brand);
+    }
+    .meta-text { font-size: 12px; color: var(--muted); }
+    .article-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.05; letter-spacing: -0.02em;
+      color: var(--fg); max-width: 680px;
+      margin-bottom: 18px;
+    }
+    .article-header h1 em { font-style: italic; color: var(--brand); }
+    .article-lede {
+      font-size: 17px; line-height: 1.65; color: var(--muted);
+      max-width: 620px; margin-bottom: 28px;
+    }
+    .article-header-meta {
+      display: flex; align-items: center; gap: 20px;
+      font-size: 12px; color: var(--muted-2);
+    }
+    .article-header-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* ── Body layout: sidebar + content + rail ── */
+    .article-body {
+      display: grid;
+      grid-template-columns: 200px 1fr 260px;
+      gap: 48px;
+      padding: 48px 0 80px;
+      align-items: start;
+    }
+
+    /* ── TOC sidebar ── */
+    .toc { position: sticky; top: 80px; }
+    .toc-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted-2);
+      margin-bottom: 14px;
+    }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 2px; }
+    .toc-list a {
+      display: block; font-size: 13px; color: var(--muted);
+      text-decoration: none; padding: 5px 0;
+      border-left: 2px solid transparent;
+      padding-left: 10px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .toc-list a:hover { color: var(--fg); }
+    .toc-list a.active { color: var(--fg); border-left-color: var(--brand); }
+
+    /* ── Article content ── */
+    .article-content { min-width: 0; }
+
+    .content-section { margin-bottom: 52px; }
+
+    .section-eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--brand);
+      margin-bottom: 10px;
+    }
+    .content-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px; letter-spacing: -0.01em;
+      color: var(--fg); margin-bottom: 14px;
+    }
+    .content-section p {
+      font-size: 15px; line-height: 1.75; color: #c8c2bc;
+      margin-bottom: 14px;
+    }
+    .content-section p strong { color: var(--fg); font-weight: 500; }
+
+    /* Tool card */
+    .tool-entry {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 24px; margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .tool-entry:hover { border-color: var(--border-h); }
+    .tool-entry-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 16px; margin-bottom: 12px;
+    }
+    .tool-entry-left { display: flex; align-items: center; gap: 12px; }
+    .tool-logo {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: var(--card-2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .tool-name-block h3 {
+      font-size: 16px; font-weight: 500; color: var(--fg); margin-bottom: 2px;
+    }
+    .tool-category { font-size: 11px; color: var(--muted); }
+    .tool-verdict-badge {
+      font-size: 11px; font-weight: 600; white-space: nowrap;
+      padding: 4px 10px; border-radius: 5px;
+    }
+    .verdict-pick { background: rgba(255,78,100,0.12); color: var(--brand); }
+    .verdict-also { background: rgba(255,240,220,0.05); color: var(--muted); }
+    .tool-entry-verdict {
+      font-size: 14px; font-style: italic; color: #bab4ae;
+      line-height: 1.55; margin-bottom: 10px;
+      border-left: 2px solid var(--brand);
+      padding-left: 12px;
+    }
+    .tool-entry-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .tool-entry-footer {
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .tool-pricing { font-size: 12px; color: var(--muted); }
+    .tool-pricing strong { color: var(--fg); }
+    .tool-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; color: var(--brand);
+      text-decoration: none;
+    }
+
+    /* Comparison table */
+    .compare-table-wrap {
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin: 24px 0 32px;
+    }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      background: var(--card); padding: 10px 16px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--muted);
+      text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .compare-table th:first-child { width: 140px; }
+    .compare-table td {
+      padding: 12px 16px; font-size: 13px; color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { font-weight: 500; color: var(--fg); }
+    .compare-table tr.winner td { background: rgba(255,78,100,0.04); }
+    .compare-table tr.winner td:first-child { color: var(--brand); }
+    .tick { color: #4ade80; font-size: 14px; }
+    .cross { color: var(--muted-2); font-size: 14px; }
+    .partial { color: #f59e0b; font-size: 14px; }
+
+    /* Opinion block */
+    .opinion-block {
+      background: linear-gradient(135deg, rgba(255,78,100,0.06) 0%, rgba(255,78,100,0.02) 100%);
+      border: 1px solid rgba(255,78,100,0.15);
+      border-radius: 10px; padding: 24px 28px; margin: 32px 0;
+    }
+    .opinion-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--brand); margin-bottom: 12px;
+    }
+    .opinion-block p {
+      font-size: 15px; line-height: 1.7; color: var(--fg);
+      margin-bottom: 0;
+    }
+    .opinion-block p em { font-style: italic; color: #bab4ae; }
+
+    /* ── Right rail ── */
+    .right-rail { position: sticky; top: 80px; }
+    .quick-pick {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; margin-bottom: 20px;
+    }
+    .quick-pick-header {
+      background: var(--card); padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .quick-pick-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--brand);
+    }
+    .quick-pick-body { padding: 18px; }
+    .qp-tool {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    }
+    .qp-logo {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--card-2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .qp-name { font-size: 15px; font-weight: 500; color: var(--fg); margin-bottom: 2px; }
+    .qp-category { font-size: 11px; color: var(--muted); }
+    .qp-verdict {
+      font-size: 13px; line-height: 1.6; color: #bab4ae;
+      margin-bottom: 14px;
+    }
+    .qp-pricing {
+      display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px;
+    }
+    .qp-price-row {
+      display: flex; justify-content: space-between;
+      font-size: 12px;
+    }
+    .qp-price-label { color: var(--muted); }
+    .qp-price-val { color: var(--fg); font-weight: 500; }
+    .qp-cta {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: var(--brand); color: #fff;
+      font-size: 13px; font-weight: 500;
+      padding: 11px; border-radius: 7px;
+      text-decoration: none; width: 100%;
+      transition: background 0.15s;
+    }
+    .qp-cta:hover { background: var(--brand-h); }
+    .qp-disclosure { font-size: 11px; color: var(--muted-2); margin-top: 8px; text-align: center; }
+
+    /* Related tools in rail */
+    .rail-section { margin-bottom: 20px; }
+    .rail-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted-2); margin-bottom: 12px;
+    }
+    .rail-tool {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; margin-bottom: 8px;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+    .rail-tool:hover { border-color: var(--border-h); }
+    .rail-tool-logo {
+      width: 28px; height: 28px; border-radius: 5px;
+      background: var(--card-2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0;
+    }
+    .rail-tool-name { font-size: 13px; font-weight: 500; color: var(--fg); }
+    .rail-tool-cat { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .rail-tool-arrow { margin-left: auto; color: var(--muted-2); font-size: 12px; }
+
+    /* Alternatives section */
+    .alt-entry {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .alt-entry:last-child { border-bottom: none; }
+    .alt-logo {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: var(--card-2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .alt-name { font-size: 14px; font-weight: 500; color: var(--fg); margin-bottom: 3px; }
+    .alt-why { font-size: 13px; color: var(--muted); line-height: 1.55; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="mockup-home.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 14 14" fill="none" style="width:12px;height:12px;">
+          <path d="M7 1L13 4.5V9.5L7 13L1 9.5V4.5L7 1Z" stroke="white" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+      <span class="nav-logo-name">Hause<span>Resource</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#">Guides</a>
+      <a href="#">Tools</a>
+      <a href="#">For Merchants</a>
+    </div>
+    <a href="#" class="nav-cta">Browse Guides</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="mockup-home.html">HauseResource</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="#">Video</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>Running a YouTube channel with 2 people</span>
+  </div>
+
+  <!-- Article header -->
+  <div class="article-header">
+    <div class="article-meta">
+      <span class="meta-badge">Video</span>
+      <span class="meta-text">8 min read</span>
+      <span class="meta-text">·</span>
+      <span class="meta-text">7 tools reviewed</span>
+      <span class="meta-text">·</span>
+      <span class="meta-text">Updated March 2026</span>
+    </div>
+    <h1 class="display">Running a YouTube channel<br/>with <em>2 people.</em></h1>
+    <p class="article-lede">
+      Production, editing, thumbnails, repurposing, distribution —
+      the complete stack for a lean video business. No editors on retainer.
+      No agency. Just two people and the right tools.
+    </p>
+    <div class="article-header-meta">
+      <span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5v3l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Written by Hause Collective
+      </span>
+      <span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        35K subscribers, 2-person team
+      </span>
+    </div>
+  </div>
+
+  <!-- Three-column layout -->
+  <div class="article-body">
+
+    <!-- TOC -->
+    <aside class="toc">
+      <div class="toc-label">On this page</div>
+      <ul class="toc-list">
+        <li><a href="#brief" class="active">The brief</a></li>
+        <li><a href="#editing">Editing</a></li>
+        <li><a href="#repurposing">Repurposing</a></li>
+        <li><a href="#thumbnails">Thumbnails</a></li>
+        <li><a href="#writing">Writing & scripts</a></li>
+        <li><a href="#planning">Planning</a></li>
+        <li><a href="#comparison">Comparison</a></li>
+        <li><a href="#verdict">What we'd do</a></li>
+        <li><a href="#alternatives">Alternatives</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main content -->
+    <article class="article-content">
+
+      <!-- The Brief -->
+      <div class="content-section" id="brief">
+        <div class="section-eyebrow">The brief</div>
+        <h2 class="display">Who this is for</h2>
+        <p>You're running a YouTube channel as a business — not a hobby. Two people, or maybe just you. You publish consistently (1–2x per week) and the goal is audience growth, brand building, and eventually sponsorship revenue.</p>
+        <p>You don't have an editor on retainer. You're not outsourcing to an agency. Every hour spent on post-production is an hour not spent creating — so the tools in this stack need to be genuinely fast, not just theoretically capable.</p>
+        <p><strong>"Good" for this situation</strong> means: you can take raw footage to a polished, captioned, multi-platform-ready video in under 2 hours.</p>
+      </div>
+
+      <!-- Editing -->
+      <div class="content-section" id="editing">
+        <div class="section-eyebrow">Editing</div>
+        <h2 class="display">The editing stack</h2>
+        <p>For a 2-person team, the editing tool is the most important decision you'll make. It needs to be fast to learn, fast to use, and capable of producing content that looks intentional — not amateur.</p>
+
+        <div class="tool-entry">
+          <div class="tool-entry-header">
+            <div class="tool-entry-left">
+              <div class="tool-logo">✂️</div>
+              <div class="tool-name-block">
+                <h3>Descript</h3>
+                <div class="tool-category">Video & audio editing</div>
+              </div>
+            </div>
+            <span class="tool-verdict-badge verdict-pick">Hause Pick</span>
+          </div>
+          <div class="tool-entry-verdict">"Edit your video by editing the transcript. Delete a word, the clip disappears. It's genuinely that simple."</div>
+          <div class="tool-entry-body">
+            Descript turns video editing into document editing. The transcript-first workflow means you can rough-cut a 30-minute recording in 20 minutes by deleting filler words, ums, and sections you don't want — without touching a timeline. The AI removes silences automatically. Eye contact correction fixes off-camera glances. It's not perfect for motion graphics or colour grading, but for talking-head YouTube content it's the fastest path from raw to polished.
+          </div>
+          <div class="tool-entry-footer">
+            <div class="tool-pricing">Free tier available. Creator plan <strong>$24/month</strong>. Pro <strong>$40/month</strong>.</div>
+            <a href="#" class="tool-link">
+              Try Descript
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-entry">
+          <div class="tool-entry-header">
+            <div class="tool-entry-left">
+              <div class="tool-logo">🎬</div>
+              <div class="tool-name-block">
+                <h3>CapCut for Desktop</h3>
+                <div class="tool-category">Alternative editor</div>
+              </div>
+            </div>
+            <span class="tool-verdict-badge verdict-also">Also consider</span>
+          </div>
+          <div class="tool-entry-verdict">"If you're more comfortable in a traditional timeline editor and want short-form built in, CapCut is your pick."</div>
+          <div class="tool-entry-body">
+            CapCut has a free desktop version that's surprisingly capable for YouTube-first creators. The auto-caption quality is strong, short-form templates are built in, and the learning curve is gentler than Premiere. If your content is more visual (travel, B-roll heavy) than talking-head, CapCut is worth serious consideration. The main limitation: no transcript editing, so word-level cuts require traditional scrubbing.
+          </div>
+          <div class="tool-entry-footer">
+            <div class="tool-pricing">Desktop version <strong>free</strong>. CapCut Pro <strong>$10/month</strong>.</div>
+            <a href="#" class="tool-link">
+              Try CapCut
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Repurposing -->
+      <div class="content-section" id="repurposing">
+        <div class="section-eyebrow">Repurposing</div>
+        <h2 class="display">Turn one video into five pieces</h2>
+        <p>A 10-minute YouTube video is also 5 TikToks, 3 Reels, 8 tweets, and a newsletter section — if you have the right tool. Repurposing used to take 2 hours. With the right stack, it's 20 minutes.</p>
+
+        <div class="tool-entry">
+          <div class="tool-entry-header">
+            <div class="tool-entry-left">
+              <div class="tool-logo">🎯</div>
+              <div class="tool-name-block">
+                <h3>Opus Clip</h3>
+                <div class="tool-category">AI video repurposing</div>
+              </div>
+            </div>
+            <span class="tool-verdict-badge verdict-pick">Hause Pick</span>
+          </div>
+          <div class="tool-entry-verdict">"Upload a long video. Get 5 short clips with captions, cropped correctly, and a virality score. It actually works."</div>
+          <div class="tool-entry-body">
+            Opus Clip uses AI to find the highest-engagement moments in a long video, crop them to vertical, add animated captions, and export them ready-to-post. The virality score (how likely a clip is to perform) is a genuine signal, not a gimmick. The main limitation: AI clips are usually 80% right — expect to spend 5 minutes per clip trimming the start/end. Still much faster than manual selection and export.
+          </div>
+          <div class="tool-entry-footer">
+            <div class="tool-pricing">Free tier (60 mins/month). Pro <strong>$15/month</strong> for 150 mins.</div>
+            <a href="#" class="tool-link">
+              Try Opus Clip
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="content-section" id="comparison">
+        <div class="section-eyebrow">Comparison</div>
+        <h2 class="display">Editing tools compared</h2>
+        <p>The four editors we've used or researched for lean YouTube teams, across the criteria that actually matter.</p>
+
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>Transcript editing</th>
+                <th>Auto-captions</th>
+                <th>Short-form</th>
+                <th>Learning curve</th>
+                <th>Price/mo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="winner">
+                <td>Descript</td>
+                <td><span class="tick">✓</span></td>
+                <td><span class="tick">✓</span></td>
+                <td><span class="partial">~</span></td>
+                <td>Low</td>
+                <td>$24</td>
+              </tr>
+              <tr>
+                <td>CapCut</td>
+                <td><span class="cross">✗</span></td>
+                <td><span class="tick">✓</span></td>
+                <td><span class="tick">✓</span></td>
+                <td>Low</td>
+                <td>Free</td>
+              </tr>
+              <tr>
+                <td>Premiere Pro</td>
+                <td><span class="cross">✗</span></td>
+                <td><span class="partial">~</span></td>
+                <td><span class="partial">~</span></td>
+                <td>High</td>
+                <td>$60</td>
+              </tr>
+              <tr>
+                <td>Final Cut Pro</td>
+                <td><span class="cross">✗</span></td>
+                <td><span class="partial">~</span></td>
+                <td><span class="cross">✗</span></td>
+                <td>Medium</td>
+                <td>$300 once</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:12px; color: var(--muted);">
+          <span class="tick">✓</span> Supported natively &nbsp;
+          <span class="partial">~</span> Partial / workaround &nbsp;
+          <span class="cross">✗</span> Not supported
+        </p>
+      </div>
+
+      <!-- The verdict -->
+      <div class="content-section" id="verdict">
+        <div class="section-eyebrow">What we'd do</div>
+        <h2 class="display">If we were starting<br/>this channel today</h2>
+
+        <div class="opinion-block">
+          <div class="opinion-label">Our honest take — Hause Collective</div>
+          <p>
+            Start with Descript on the Creator plan. The transcript editing workflow alone saves 45 minutes per video. Use Opus Clip to pull short-form from every video — don't build a separate short-form workflow until you've validated that your content works in long-form first.
+            <br/><br/>
+            <em>Add Canva Pro for thumbnails once you've shipped 10 videos and found your visual style — not before. Too many creators obsess over thumbnails before they've figured out what they're actually saying.</em>
+            <br/><br/>
+            The mistake we see: using five tools from day one and mastering none. Lock in Descript + Opus Clip for 90 days. Then layer in the rest.
+          </p>
+        </div>
+      </div>
+
+      <!-- Alternatives -->
+      <div class="content-section" id="alternatives">
+        <div class="section-eyebrow">Alternatives</div>
+        <h2 class="display">Tools that didn't make the cut — and why</h2>
+        <p>These tools are good. They just didn't win for this specific situation.</p>
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; padding: 0 16px;">
+          <div class="alt-entry">
+            <div class="alt-logo">🎞️</div>
+            <div>
+              <div class="alt-name">Adobe Premiere Pro</div>
+              <div class="alt-why">Industry standard for a reason — but the learning curve is steep for a 2-person team with no dedicated editor. $60/month for features you won't use for 80% of YouTube content.</div>
+            </div>
+          </div>
+          <div class="alt-entry">
+            <div class="alt-logo">🎥</div>
+            <div>
+              <div class="alt-name">Riverside.fm</div>
+              <div class="alt-why">Excellent for podcast-first creators. If your YouTube content is interview-based, Riverside's local recording quality beats everything. Doesn't make the cut here because it's a recording tool, not an editing workflow.</div>
+            </div>
+          </div>
+          <div class="alt-entry">
+            <div class="alt-logo">📱</div>
+            <div>
+              <div class="alt-name">Submagic</div>
+              <div class="alt-why">Great auto-captions for short-form. But Opus Clip does captions plus clip selection plus virality scoring. Submagic loses unless you're doing all your own clip selection manually.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- Right rail -->
+    <aside class="right-rail">
+
+      <!-- Quick Pick -->
+      <div class="quick-pick">
+        <div class="quick-pick-header">
+          <div class="quick-pick-label">⭐ Hause Pick — Editing</div>
+        </div>
+        <div class="quick-pick-body">
+          <div class="qp-tool">
+            <div class="qp-logo">✂️</div>
+            <div>
+              <div class="qp-name">Descript</div>
+              <div class="qp-category">Video editing</div>
+            </div>
+          </div>
+          <div class="qp-verdict">Edit video like a document. The fastest path from raw footage to polished, captioned, ready-to-publish YouTube content.</div>
+          <div class="qp-pricing">
+            <div class="qp-price-row">
+              <span class="qp-price-label">Free tier</span>
+              <span class="qp-price-val">Yes</span>
+            </div>
+            <div class="qp-price-row">
+              <span class="qp-price-label">Creator</span>
+              <span class="qp-price-val">$24/mo</span>
+            </div>
+            <div class="qp-price-row">
+              <span class="qp-price-label">Pro</span>
+              <span class="qp-price-val">$40/mo</span>
+            </div>
+          </div>
+          <a href="#" class="qp-cta">
+            Start free trial
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="qp-disclosure">Affiliate link · We earn a commission</div>
+        </div>
+      </div>
+
+      <!-- All tools in this guide -->
+      <div class="rail-section">
+        <div class="rail-label">All tools in this guide</div>
+        <a href="#" class="rail-tool">
+          <div class="rail-tool-logo">✂️</div>
+          <div>
+            <div class="rail-tool-name">Descript</div>
+            <div class="rail-tool-cat">Editing</div>
+          </div>
+          <span class="rail-tool-arrow">→</span>
+        </a>
+        <a href="#" class="rail-tool">
+          <div class="rail-tool-logo">🎯</div>
+          <div>
+            <div class="rail-tool-name">Opus Clip</div>
+            <div class="rail-tool-cat">Repurposing</div>
+          </div>
+          <span class="rail-tool-arrow">→</span>
+        </a>
+        <a href="#" class="rail-tool">
+          <div class="rail-tool-logo">🎨</div>
+          <div>
+            <div class="rail-tool-name">Canva Pro</div>
+            <div class="rail-tool-cat">Thumbnails</div>
+          </div>
+          <span class="rail-tool-arrow">→</span>
+        </a>
+        <a href="#" class="rail-tool">
+          <div class="rail-tool-logo">🤖</div>
+          <div>
+            <div class="rail-tool-name">Claude</div>
+            <div class="rail-tool-cat">Scripting & ideation</div>
+          </div>
+          <span class="rail-tool-arrow">→</span>
+        </a>
+        <a href="#" class="rail-tool">
+          <div class="rail-tool-logo">📋</div>
+          <div>
+            <div class="rail-tool-name">Notion</div>
+            <div class="rail-tool-cat">Content planning</div>
+          </div>
+          <span class="rail-tool-arrow">→</span>
+        </a>
+      </div>
+
+    </aside>
+
+  </div>
+
+</div>
+
+</body>
+</html>

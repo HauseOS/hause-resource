@@ -1,317 +1,37 @@
 @import "tailwindcss";
 
-/* ============================================
-   DESIGN TOKENS & CSS VARIABLES
-   ============================================ */
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "DM Serif Display", Georgia, serif;
 
-:root {
-  /* Colors */
-  --background: #0a0908;
-  --surface: #0f0d0c;
-  --surface-hover: #14120f;
-  
-  --foreground: #ede8e3;
-  --foreground-muted: #6b6460;
-  --foreground-dim: rgba(237, 232, 227, 0.65);
-  --foreground-dimmer: rgba(237, 232, 227, 0.32);
-  
-  --primary: #ff4e64;
-  --primary-hover: #ff6b7d;
-  --primary-active: #ff3a4f;
-  --primary-glow: rgba(255, 78, 100, 0.2);
-  --primary-glow-lg: rgba(255, 78, 100, 0.3);
-  
-  --border: rgba(255, 240, 220, 0.08);
-  --border-hover: rgba(255, 240, 220, 0.15);
-  --border-focus: rgba(255, 78, 100, 0.4);
-  
-  /* Typography */
-  --font-display: system-ui, -apple-system, sans-serif;
-  --font-sans: system-ui, -apple-system, sans-serif;
-  --font-mono: Monaco, 'Courier New', monospace;
-  
-  /* Transitions */
-  --transition-fast: 120ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  --transition-normal: 200ms ease;
-  --transition-slow: 300ms ease;
+  /* Hause colour system */
+  --color-bg:          #0a0908;
+  --color-surface:     #100e0c;
+  --color-card:        #161210;
+  --color-card-2:      #1b1714;
+  --color-fg:          #ede8e3;
+  --color-muted:       #7a7470;
+  --color-muted-2:     #4a4644;
+  --color-border:      rgba(255,240,220,0.07);
+  --color-border-h:    rgba(255,240,220,0.14);
+  --color-brand:       #ff4e64;
+  --color-brand-h:     #ff6b7d;
+  --color-brand-glow:  rgba(255,78,100,0.12);
 }
 
-/* ============================================
-   RESET & BASE STYLES
-   ============================================ */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  scroll-behavior: smooth;
-  color-scheme: dark;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-bg);
+  color: var(--color-fg);
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior: none;
-}
-
-/* ============================================
-   TYPOGRAPHY
-   ============================================ */
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-h1 {
-  font-size: 3rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.875rem;
-}
-
-h4 {
-  font-size: 1.5rem;
-}
-
-h5 {
-  font-size: 1.25rem;
-}
-
-h6 {
-  font-size: 1.125rem;
-}
-
-p {
-  color: var(--foreground-dim);
+  font-size: 15px;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ============================================
-   LINKS & INTERACTIONS
-   ============================================ */
-
-a {
-  color: var(--primary);
-  text-decoration: none;
-  transition: color var(--transition-normal);
-}
-
-a:hover {
-  color: var(--primary-hover);
-}
-
-a:active {
-  color: var(--primary-active);
-}
-
-/* ============================================
-   FOCUS & ACCESSIBILITY
-   ============================================ */
-
-*:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
-::selection {
-  background: var(--primary-glow-lg);
-  color: var(--foreground);
-}
-
-/* ============================================
-   SCROLLBAR
-   ============================================ */
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--surface);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-hover);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
-}
-
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
-
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--primary);
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-  z-index: 100;
-}
-
-.skip-link:focus {
-  top: 0;
-}
-
-/* Gradient text helper */
-.gradient-text {
-  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Glow effect */
-.glow {
-  text-shadow: 0 0 10px var(--primary-glow);
-}
-
-/* Glass morphism effect */
-.glass {
-  background: rgba(15, 13, 12, 0.8);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-/* Smooth transition utility */
-.transition-smooth {
-  transition: all var(--transition-normal);
-}
-
-/* ============================================
-   ANIMATIONS & MICRO-INTERACTIONS
-   ============================================ */
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes glow-pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-@keyframes lift {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-2px);
-  }
-}
-
-@keyframes subtle-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 78, 100, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 78, 100, 0.3);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-/* Smooth transitions for all interactive elements */
-a, button, input, textarea, select {
-  transition: all 200ms ease;
-}
-
-/* Smooth color transitions */
-.transition-colors {
-  transition-property: color, border-color, background-color;
-  transition-duration: 200ms;
-  transition-timing-function: ease;
-}
-
-/* Smooth all property transitions */
-.transition-smooth {
-  transition-property: all;
-  transition-duration: 200ms;
-  transition-timing-function: ease;
-}
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ============================================
-   DARK MODE (always on for HauseResource)
-   ============================================ */
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color-scheme: dark;
-  }
-  
-  body {
-    background: var(--background);
-    color: var(--foreground);
-  }
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-muted-2); border-radius: 3px; }

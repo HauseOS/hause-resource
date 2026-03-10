@@ -1,199 +1,251 @@
 import Link from 'next/link';
-import { Button } from '@/components/hause/Button';
-import { ToolCard } from '@/components/hause/ToolCard';
-import { getToolsByCategory } from '@/lib/tools';
+import { TOOLS, GUIDES, CATEGORY_LABELS, type Category } from '@/lib/data';
+import { CategoryBadge } from '@/components/category-badge';
+
+const FILTER_TABS: { label: string; value: string }[] = [
+  { label: '⭐ Hause Picks', value: 'picks' },
+  { label: 'All', value: 'all' },
+  { label: 'Video', value: 'video' },
+  { label: 'Writing', value: 'writing' },
+  { label: 'Design', value: 'design' },
+  { label: 'Build', value: 'build' },
+  { label: 'Automate', value: 'automate' },
+];
 
 export default function Home() {
-  const imageGenTools = getToolsByCategory('image-gen').slice(0, 3);
-  const writingTools = getToolsByCategory('writing').slice(0, 3);
-  const videoTools = getToolsByCategory('video').slice(0, 3);
-  const codeTools = getToolsByCategory('code').slice(0, 2);
+  const liveGuides = GUIDES.filter((g) => g.live);
+  const upcomingGuides = GUIDES.filter((g) => !g.live);
+  const topTools = TOOLS.slice(0, 9);
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative px-6 py-28 md:py-40 overflow-hidden">
-        {/* Glow effects */}
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full blur-3xl opacity-10 bg-primary pointer-events-none" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full blur-3xl opacity-5 bg-primary pointer-events-none" />
+      {/* ── Hero ── */}
+      <section className="max-w-[1200px] mx-auto px-7 pt-12 pb-9">
+        <div className="flex items-end justify-between gap-8 mb-7">
+          <h1 className="font-display text-[clamp(30px,4.5vw,48px)] leading-[1.05] tracking-[-0.02em] text-fg">
+            The stack for<br />
+            <em className="not-italic text-brand">lean creative</em> businesses.
+          </h1>
+          <p className="text-[14px] text-muted leading-relaxed max-w-[320px] text-right hidden md:block">
+            Curated guides and honest tool picks —<br />
+            from a team that runs one.<br />
+            No fluff. Just what works.
+          </p>
+        </div>
 
-        <div className="relative max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-block text-xs uppercase tracking-widest text-foreground-muted font-bold mb-6 bg-surface/50 px-4 py-2 rounded-full border border-border/50">
-              Curated Directory
-            </span>
+        {/* Search bar */}
+        <div className="relative">
+          <svg
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-2"
+            width="16" height="16" viewBox="0 0 16 16" fill="none"
+          >
+            <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.4" />
+            <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Find tools for video editing, newsletters, automation..."
+            className="w-full bg-surface border border-border-h rounded-[10px] py-3.5 pl-11 pr-16 text-[15px] text-fg placeholder:text-muted-2 outline-none focus:border-brand/40 focus:shadow-[0_0_0_3px_rgba(255,78,100,0.08)] transition-all"
+          />
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] text-muted-2 bg-card border border-border rounded px-1.5 py-0.5">
+            ⌘K
+          </span>
+        </div>
+      </section>
 
-            <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight mb-8 tracking-tight">
-              AI Tools for <span className="text-primary">Builders</span>
-            </h1>
+      {/* ── Directory ── */}
+      <div className="max-w-[1200px] mx-auto px-7 pb-20">
 
-            <p className="text-xl text-foreground-dim max-w-3xl mx-auto mb-12 leading-relaxed">
-              We've tested dozens of AI tools. Here are the ones we actually use and recommend. Transparent affiliate links help us create better content.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link href="#tools">
-                <Button size="lg">Explore Tools</Button>
-              </Link>
-              <Link href="/comparisons">
-                <Button size="lg" variant="secondary">Compare All</Button>
-              </Link>
-            </div>
+        {/* Filter bar */}
+        <div className="flex items-center justify-between mb-5 gap-3 flex-wrap">
+          <div className="flex items-center gap-0.5">
+            {FILTER_TABS.map((tab, i) => (
+              <button
+                key={tab.value}
+                className={[
+                  'text-[13px] font-medium px-3.5 py-1.5 rounded-md transition-colors',
+                  i === 0
+                    ? 'text-brand bg-brand/8'
+                    : i === 1
+                    ? 'text-fg bg-surface'
+                    : 'text-muted hover:text-fg hover:bg-surface',
+                ].join(' ')}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
+          <div className="flex items-center gap-2">
+            {['Free tier', 'AI-native', 'Paid only'].map((chip, i) => (
+              <button
+                key={chip}
+                className={[
+                  'text-[12px] border rounded-[5px] px-2.5 py-1 transition-colors',
+                  i === 0
+                    ? 'border-brand text-brand bg-brand/6'
+                    : 'border-border text-muted hover:border-border-h hover:text-fg',
+                ].join(' ')}
+              >
+                {chip}
+              </button>
+            ))}
+          </div>
+        </div>
 
-          {/* Affiliate disclosure - more prominent */}
-          <div className="max-w-2xl mx-auto">
-            <div className="p-6 rounded-lg border border-border/50 bg-surface/30 backdrop-blur-sm">
-              <div className="flex gap-4">
-                <span className="text-2xl flex-shrink-0">💰</span>
-                <div>
-                  <p className="font-semibold text-foreground mb-2">Affiliate Transparency</p>
-                  <p className="text-sm text-foreground-dim leading-relaxed">
-                    We earn commission on affiliate links, but this doesn't affect your pricing. We only recommend tools we deeply believe in and have tested ourselves.
+        {/* ── Situation Guides ── */}
+        <div className="flex items-center gap-3 mb-4 mt-1" id="guides">
+          <span className="text-[11px] font-semibold tracking-widest uppercase text-muted-2 whitespace-nowrap">
+            Situation guides
+          </span>
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-[11px] text-muted-2 whitespace-nowrap">
+            {liveGuides.length} live · {upcomingGuides.length} coming soon
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-3.5">
+          {liveGuides.map((guide) => {
+            const guideTools = guide.toolSlugs
+              .slice(0, 4)
+              .map((s) => TOOLS.find((t) => t.id === s)?.name)
+              .filter(Boolean);
+            const extra = guide.toolSlugs.length - guideTools.length;
+
+            return (
+              <Link
+                key={guide.slug}
+                href={`/guides/${guide.slug}`}
+                className="group block bg-surface border border-border rounded-[10px] overflow-hidden hover:border-border-h hover:-translate-y-px hover:shadow-card-h transition-all duration-200 no-underline"
+              >
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-2.5 mb-2.5">
+                    <CategoryBadge category={guide.category} />
+                    {guide.hausePick && (
+                      <span className="text-[10px] font-semibold text-brand flex items-center gap-1">
+                        ⭐ Hause Pick
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-display text-[18px] leading-snug text-fg mb-1.5 group-hover:text-brand transition-colors">
+                    {guide.title}
+                  </h3>
+                  <p className="text-[13px] text-muted leading-relaxed mb-3.5 line-clamp-2">
+                    {guide.lede}
                   </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {guideTools.map((name) => (
+                      <span
+                        key={name}
+                        className="text-[11px] text-muted bg-card border border-border rounded px-2 py-0.5"
+                      >
+                        {name}
+                      </span>
+                    ))}
+                    {extra > 0 && (
+                      <span className="text-[11px] text-muted bg-card border border-border rounded px-2 py-0.5">
+                        +{extra} more
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tools Section */}
-      <section id="tools" className="px-6 py-24 border-t border-border bg-gradient-to-b from-transparent via-primary/5 to-transparent">
-        <div className="max-w-7xl mx-auto space-y-32">
-          {/* Image Generation */}
-          <div className="animate-fade-in group/section">
-            <div className="mb-12 pb-12 border-b border-border/30">
-              <h2 className="text-5xl font-display font-bold mb-4 group-hover/section:text-primary transition-colors duration-300">
-                🎨 Image Generation
-              </h2>
-              <p className="text-lg text-foreground-dim max-w-2xl">
-                Create stunning visuals with AI-powered image generators. From photorealistic to artistic styles.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8 mb-10">
-              {imageGenTools.map((tool, idx) => (
-                <div key={tool.id} style={{ animation: `fade-in 0.5s ease-out ${idx * 0.1}s both` }}>
-                  <ToolCard tool={tool} variant="tile" />
+                <div className="border-t border-border px-5 py-2.5 flex items-center justify-between">
+                  <span className="text-[11px] text-muted-2">
+                    Updated {guide.updatedAt} · {guide.readTime} read
+                  </span>
+                  <span className="text-[12px] font-medium text-brand">
+                    Read guide →
+                  </span>
                 </div>
-              ))}
-            </div>
-            <Link 
-              href="/image-generation" 
-              className="inline-flex items-center gap-2 text-primary hover:text-primary-hover transition-all duration-200 font-semibold text-base group/link hover:translate-x-1"
-            >
-              <span>View all image generation tools</span>
-              <span className="transition-transform duration-200 group-hover/link:translate-x-1">→</span>
-            </Link>
-          </div>
-
-          {/* Writing */}
-          <div className="animate-fade-in group/section" style={{ animationDelay: '0.1s' }}>
-            <div className="mb-12 pb-12 border-b border-border/30">
-              <h2 className="text-5xl font-display font-bold mb-4 group-hover/section:text-primary transition-colors duration-300">
-                ✍️ Writing & Content
-              </h2>
-              <p className="text-lg text-foreground-dim max-w-2xl">
-                AI-powered writing tools for creators and builders. Generate, edit, and refine content at scale.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8 mb-10">
-              {writingTools.map((tool, idx) => (
-                <div key={tool.id} style={{ animation: `fade-in 0.5s ease-out ${0.1 + idx * 0.1}s both` }}>
-                  <ToolCard tool={tool} variant="tile" />
-                </div>
-              ))}
-            </div>
-            <Link 
-              href="/writing-content" 
-              className="inline-flex items-center gap-2 text-primary hover:text-primary-hover transition-all duration-200 font-semibold text-base group/link hover:translate-x-1"
-            >
-              <span>View all writing tools</span>
-              <span className="transition-transform duration-200 group-hover/link:translate-x-1">→</span>
-            </Link>
-          </div>
-
-          {/* Video */}
-          <div className="animate-fade-in group/section" style={{ animationDelay: '0.2s' }}>
-            <div className="mb-12 pb-12 border-b border-border/30">
-              <h2 className="text-5xl font-display font-bold mb-4 group-hover/section:text-primary transition-colors duration-300">
-                🎬 Video & Audio
-              </h2>
-              <p className="text-lg text-foreground-dim max-w-2xl">
-                Professional video and audio production with AI. Create, edit, and optimize content faster.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8 mb-10">
-              {videoTools.map((tool, idx) => (
-                <div key={tool.id} style={{ animation: `fade-in 0.5s ease-out ${0.2 + idx * 0.1}s both` }}>
-                  <ToolCard tool={tool} variant="tile" />
-                </div>
-              ))}
-            </div>
-            <Link 
-              href="/video-audio" 
-              className="inline-flex items-center gap-2 text-primary hover:text-primary-hover transition-all duration-200 font-semibold text-base group/link hover:translate-x-1"
-            >
-              <span>View all video tools</span>
-              <span className="transition-transform duration-200 group-hover/link:translate-x-1">→</span>
-            </Link>
-          </div>
-
-          {/* Code & Automation */}
-          <div className="animate-fade-in group/section" style={{ animationDelay: '0.3s' }}>
-            <div className="mb-12">
-              <h2 className="text-5xl font-display font-bold mb-4 group-hover/section:text-primary transition-colors duration-300">
-                💻 Code & Automation
-              </h2>
-              <p className="text-lg text-foreground-dim max-w-2xl">
-                Build faster with AI-powered development tools. Automate workflows and write code smarter.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8 mb-10">
-              {codeTools.map((tool, idx) => (
-                <div key={tool.id} style={{ animation: `fade-in 0.5s ease-out ${0.3 + idx * 0.1}s both` }}>
-                  <ToolCard tool={tool} variant="tile" />
-                </div>
-              ))}
-            </div>
-            <Link 
-              href="/code-automation" 
-              className="inline-flex items-center gap-2 text-primary hover:text-primary-hover transition-all duration-200 font-semibold text-base group/link hover:translate-x-1"
-            >
-              <span>View all code tools</span>
-              <span className="transition-transform duration-200 group-hover/link:translate-x-1">→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="px-6 py-28 border-t border-border">
-        <div className="max-w-4xl mx-auto">
-          <div className="relative rounded-2xl border border-border/40 bg-gradient-to-br from-surface/80 to-surface/40 p-16 text-center overflow-hidden group">
-            {/* Glow effect */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-primary-glow via-transparent to-transparent rounded-2xl" />
-            
-            {/* Animated background circles */}
-            <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-2xl opacity-5 bg-primary animate-pulse" />
-            <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full blur-2xl opacity-5 bg-primary animate-pulse" style={{ animationDelay: '1s' }} />
-            
-            <div className="relative space-y-8">
-              <div>
-                <h2 className="text-5xl font-display font-bold mb-6">Compare All Tools</h2>
-                <p className="text-xl text-foreground-dim max-w-2xl mx-auto leading-relaxed">
-                  See pricing, features, and affiliate rates for all our recommended tools in one place. Filter by category and find the perfect fit for your needs.
-                </p>
-              </div>
-              <Link href="/comparisons">
-                <Button size="lg" className="text-lg px-10 py-4">
-                  Browse Comparison Table
-                </Button>
               </Link>
-            </div>
+            );
+          })}
+        </div>
+
+        {/* Coming soon strip */}
+        <div className="border border-dashed border-border rounded-[9px] px-4 py-3.5 flex items-center justify-between gap-4 mb-8">
+          <p className="text-[13px] text-muted-2">
+            Coming soon:{' '}
+            {upcomingGuides.map((g, i) => (
+              <span key={g.slug}>
+                <strong className="text-muted font-medium">{g.shortTitle}</strong>
+                {i < upcomingGuides.length - 1 && ' · '}
+              </span>
+            ))}
+          </p>
+          <button className="text-[12px] text-brand border border-brand/25 rounded-[5px] px-3 py-1.5 hover:bg-brand/6 transition-colors whitespace-nowrap">
+            Notify me
+          </button>
+        </div>
+
+        {/* ── Top Tools ── */}
+        <div className="flex items-center gap-3 mb-4" id="tools">
+          <span className="text-[11px] font-semibold tracking-widest uppercase text-muted-2 whitespace-nowrap">
+            Top tools
+          </span>
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-[11px] text-muted-2">{TOOLS.length} tools reviewed</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+          {topTools.map((tool) => (
+            <a
+              key={tool.id}
+              href={tool.affiliateUrl}
+              className="group block bg-surface border border-border rounded-[9px] p-4 hover:border-border-h hover:-translate-y-px transition-all duration-150 no-underline"
+            >
+              <div className="flex items-start justify-between mb-2.5">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-[7px] bg-card-2 border border-border flex items-center justify-center text-base flex-shrink-0">
+                    {tool.emoji}
+                  </div>
+                  <div>
+                    <div className="text-[14px] font-medium text-fg leading-tight">{tool.name}</div>
+                    <CategoryBadge category={tool.category} className="mt-0.5" />
+                  </div>
+                </div>
+                {tool.hausePick && <span className="text-brand text-[12px]">⭐</span>}
+              </div>
+              <p className="text-[12px] text-muted leading-[1.55] mb-2.5 line-clamp-2">
+                {tool.tagline}
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] text-muted-2">
+                  From <strong className="text-muted">{tool.pricingFrom}</strong>
+                </span>
+                <span className="text-[12px] text-muted-2 group-hover:text-brand transition-colors">→</span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div className="text-center mt-6">
+          <a href="#" className="text-[13px] text-muted hover:text-fg transition-colors">
+            View all {TOOLS.length} tools →
+          </a>
+        </div>
+
+        {/* ── Merchants ── */}
+        <div className="border-t border-border mt-14 pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6" id="merchants">
+          <div>
+            <h2 className="font-display text-[22px] text-fg mb-1">Want to be featured here?</h2>
+            <p className="text-[14px] text-muted">
+              Editorial placements for tools that fit lean creative businesses. Starting at $300/month.
+            </p>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <a
+              href="#"
+              className="inline-flex items-center gap-1.5 bg-brand text-white text-[13px] font-medium px-5 py-2.5 rounded-[7px] hover:bg-brand-h transition-colors no-underline"
+            >
+              Partner with us →
+            </a>
+            <a href="#" className="text-[13px] text-muted hover:text-fg transition-colors">
+              See how it works
+            </a>
           </div>
         </div>
-      </section>
+
+      </div>
     </>
   );
 }
