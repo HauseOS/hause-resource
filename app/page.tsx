@@ -1,251 +1,188 @@
 import Link from 'next/link';
-import { TOOLS, GUIDES, CATEGORY_LABELS, type Category } from '@/lib/data';
-import { CategoryBadge } from '@/components/category-badge';
-
-const FILTER_TABS: { label: string; value: string }[] = [
-  { label: '⭐ Hause Picks', value: 'picks' },
-  { label: 'All', value: 'all' },
-  { label: 'Video', value: 'video' },
-  { label: 'Writing', value: 'writing' },
-  { label: 'Design', value: 'design' },
-  { label: 'Build', value: 'build' },
-  { label: 'Automate', value: 'automate' },
-];
+import { Nav } from '@/components/nav';
 
 export default function Home() {
-  const liveGuides = GUIDES.filter((g) => g.live);
-  const upcomingGuides = GUIDES.filter((g) => !g.live);
-  const topTools = TOOLS.slice(0, 9);
-
   return (
     <>
-      {/* ── Hero ── */}
-      <section className="max-w-[1200px] mx-auto px-7 pt-12 pb-9">
-        <div className="flex items-end justify-between gap-8 mb-7">
-          <h1 className="font-display text-[clamp(30px,4.5vw,48px)] leading-[1.05] tracking-[-0.02em] text-fg">
+      <Nav />
+
+      {/* Hero */}
+      <div className="hero">
+        <div className="hero-top">
+          <h1 className="hero-headline">
             The stack for<br />
-            <em className="not-italic text-brand">lean creative</em> businesses.
+            <em>lean creative</em> businesses.
           </h1>
-          <p className="text-[14px] text-muted leading-relaxed max-w-[320px] text-right hidden md:block">
+          <p className="hero-sub">
             Curated guides and honest tool picks —<br />
             from a team that runs one.<br />
             No fluff. Just what works.
           </p>
         </div>
-
-        {/* Search bar */}
-        <div className="relative">
-          <svg
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-2"
-            width="16" height="16" viewBox="0 0 16 16" fill="none"
-          >
+        <div className="search-wrap">
+          <svg className="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.4" />
             <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
           </svg>
-          <input
-            type="text"
-            placeholder="Find tools for video editing, newsletters, automation..."
-            className="w-full bg-surface border border-border-h rounded-[10px] py-3.5 pl-11 pr-16 text-[15px] text-fg placeholder:text-muted-2 outline-none focus:border-brand/40 focus:shadow-[0_0_0_3px_rgba(255,78,100,0.08)] transition-all"
-          />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] text-muted-2 bg-card border border-border rounded px-1.5 py-0.5">
-            ⌘K
-          </span>
+          <input className="search-input" type="text" placeholder="Find tools for video editing, newsletters, automation..." />
+          <span className="search-hint">⌘K</span>
         </div>
-      </section>
+      </div>
 
-      {/* ── Directory ── */}
-      <div className="max-w-[1200px] mx-auto px-7 pb-20">
+      {/* Directory */}
+      <div className="directory">
 
         {/* Filter bar */}
-        <div className="flex items-center justify-between mb-5 gap-3 flex-wrap">
-          <div className="flex items-center gap-0.5">
-            {FILTER_TABS.map((tab, i) => (
-              <button
-                key={tab.value}
-                className={[
-                  'text-[13px] font-medium px-3.5 py-1.5 rounded-md transition-colors',
-                  i === 0
-                    ? 'text-brand bg-brand/8'
-                    : i === 1
-                    ? 'text-fg bg-surface'
-                    : 'text-muted hover:text-fg hover:bg-surface',
-                ].join(' ')}
-              >
-                {tab.label}
-              </button>
-            ))}
+        <div className="filter-bar">
+          <div className="filter-tabs">
+            <button className="filter-tab active-brand">⭐ Hause Picks</button>
+            <button className="filter-tab active">All guides</button>
+            <button className="filter-tab">Video</button>
+            <button className="filter-tab">Writing</button>
+            <button className="filter-tab">Design</button>
+            <button className="filter-tab">Build</button>
+            <button className="filter-tab">Automate</button>
           </div>
-          <div className="flex items-center gap-2">
-            {['Free tier', 'AI-native', 'Paid only'].map((chip, i) => (
-              <button
-                key={chip}
-                className={[
-                  'text-[12px] border rounded-[5px] px-2.5 py-1 transition-colors',
-                  i === 0
-                    ? 'border-brand text-brand bg-brand/6'
-                    : 'border-border text-muted hover:border-border-h hover:text-fg',
-                ].join(' ')}
-              >
-                {chip}
-              </button>
-            ))}
+          <div className="filter-right">
+            <button className="filter-chip on">Free tier</button>
+            <button className="filter-chip">AI-native</button>
+            <button className="filter-chip">Paid only</button>
           </div>
         </div>
 
-        {/* ── Situation Guides ── */}
-        <div className="flex items-center gap-3 mb-4 mt-1" id="guides">
-          <span className="text-[11px] font-semibold tracking-widest uppercase text-muted-2 whitespace-nowrap">
-            Situation guides
-          </span>
-          <div className="flex-1 h-px bg-border" />
-          <span className="text-[11px] text-muted-2 whitespace-nowrap">
-            {liveGuides.length} live · {upcomingGuides.length} coming soon
-          </span>
+        {/* Situation Guides */}
+        <div className="section-divider" id="guides">
+          <span className="section-divider-label">Situation guides</span>
+          <div className="section-divider-line"></div>
+          <span className="section-divider-count">2 live · 4 coming soon</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-3.5">
-          {liveGuides.map((guide) => {
-            const guideTools = guide.toolSlugs
-              .slice(0, 4)
-              .map((s) => TOOLS.find((t) => t.id === s)?.name)
-              .filter(Boolean);
-            const extra = guide.toolSlugs.length - guideTools.length;
-
-            return (
-              <Link
-                key={guide.slug}
-                href={`/guides/${guide.slug}`}
-                className="group block bg-surface border border-border rounded-[10px] overflow-hidden hover:border-border-h hover:-translate-y-px hover:shadow-card-h transition-all duration-200 no-underline"
-              >
-                <div className="p-5">
-                  <div className="flex items-start justify-between gap-2.5 mb-2.5">
-                    <CategoryBadge category={guide.category} />
-                    {guide.hausePick && (
-                      <span className="text-[10px] font-semibold text-brand flex items-center gap-1">
-                        ⭐ Hause Pick
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="font-display text-[18px] leading-snug text-fg mb-1.5 group-hover:text-brand transition-colors">
-                    {guide.title}
-                  </h3>
-                  <p className="text-[13px] text-muted leading-relaxed mb-3.5 line-clamp-2">
-                    {guide.lede}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {guideTools.map((name) => (
-                      <span
-                        key={name}
-                        className="text-[11px] text-muted bg-card border border-border rounded px-2 py-0.5"
-                      >
-                        {name}
-                      </span>
-                    ))}
-                    {extra > 0 && (
-                      <span className="text-[11px] text-muted bg-card border border-border rounded px-2 py-0.5">
-                        +{extra} more
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="border-t border-border px-5 py-2.5 flex items-center justify-between">
-                  <span className="text-[11px] text-muted-2">
-                    Updated {guide.updatedAt} · {guide.readTime} read
-                  </span>
-                  <span className="text-[12px] font-medium text-brand">
-                    Read guide →
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Coming soon strip */}
-        <div className="border border-dashed border-border rounded-[9px] px-4 py-3.5 flex items-center justify-between gap-4 mb-8">
-          <p className="text-[13px] text-muted-2">
-            Coming soon:{' '}
-            {upcomingGuides.map((g, i) => (
-              <span key={g.slug}>
-                <strong className="text-muted font-medium">{g.shortTitle}</strong>
-                {i < upcomingGuides.length - 1 && ' · '}
-              </span>
-            ))}
-          </p>
-          <button className="text-[12px] text-brand border border-brand/25 rounded-[5px] px-3 py-1.5 hover:bg-brand/6 transition-colors whitespace-nowrap">
-            Notify me
-          </button>
-        </div>
-
-        {/* ── Top Tools ── */}
-        <div className="flex items-center gap-3 mb-4" id="tools">
-          <span className="text-[11px] font-semibold tracking-widest uppercase text-muted-2 whitespace-nowrap">
-            Top tools
-          </span>
-          <div className="flex-1 h-px bg-border" />
-          <span className="text-[11px] text-muted-2">{TOOLS.length} tools reviewed</span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-          {topTools.map((tool) => (
-            <a
-              key={tool.id}
-              href={tool.affiliateUrl}
-              className="group block bg-surface border border-border rounded-[9px] p-4 hover:border-border-h hover:-translate-y-px transition-all duration-150 no-underline"
-            >
-              <div className="flex items-start justify-between mb-2.5">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-[7px] bg-card-2 border border-border flex items-center justify-center text-base flex-shrink-0">
-                    {tool.emoji}
-                  </div>
-                  <div>
-                    <div className="text-[14px] font-medium text-fg leading-tight">{tool.name}</div>
-                    <CategoryBadge category={tool.category} className="mt-0.5" />
-                  </div>
-                </div>
-                {tool.hausePick && <span className="text-brand text-[12px]">⭐</span>}
+        <div className="guides-grid">
+          {/* Guide: YouTube */}
+          <Link href="/guides/youtube-channel" className="guide-card">
+            <div className="guide-card-inner">
+              <div className="guide-card-top">
+                <span className="guide-badge badge-video">Video</span>
+                <span className="guide-hause-pick">⭐ Hause Pick</span>
               </div>
-              <p className="text-[12px] text-muted leading-[1.55] mb-2.5 line-clamp-2">
-                {tool.tagline}
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] text-muted-2">
-                  From <strong className="text-muted">{tool.pricingFrom}</strong>
-                </span>
-                <span className="text-[12px] text-muted-2 group-hover:text-brand transition-colors">→</span>
+              <h3>Running a YouTube channel<br />with 2 people</h3>
+              <p>Editing, thumbnails, repurposing, distribution. The full stack for a lean video business — 7 tools, honest tradeoffs.</p>
+              <div className="guide-card-tools">
+                <span className="tool-chip">Descript</span>
+                <span className="tool-chip">Opus Clip</span>
+                <span className="tool-chip">Canva Pro</span>
+                <span className="tool-chip">Claude</span>
+                <span className="tool-chip">+3 more</span>
+              </div>
+            </div>
+            <div className="guide-card-footer">
+              <span className="guide-footer-meta">Updated Mar 2026 · 8 min read</span>
+              <span className="guide-footer-cta">Read guide →</span>
+            </div>
+          </Link>
+
+          {/* Guide: Newsletter */}
+          <a href="#" className="guide-card">
+            <div className="guide-card-inner">
+              <div className="guide-card-top">
+                <span className="guide-badge badge-writing">Writing</span>
+              </div>
+              <h3>Launching a newsletter<br />from scratch</h3>
+              <p>Platform, writing workflow, design, distribution, monetisation. Zero to 1,000 subscribers — what the stack looks like.</p>
+              <div className="guide-card-tools">
+                <span className="tool-chip">beehiiv</span>
+                <span className="tool-chip">Claude</span>
+                <span className="tool-chip">ConvertKit</span>
+                <span className="tool-chip">+2 more</span>
+              </div>
+            </div>
+            <div className="guide-card-footer">
+              <span className="guide-footer-meta">Updated Mar 2026 · 6 min read</span>
+              <span className="guide-footer-cta">Read guide →</span>
+            </div>
+          </a>
+        </div>
+
+        {/* Coming soon */}
+        <div className="coming-strip">
+          <span className="coming-text">
+            Coming soon: <strong>Client creative work without a design team</strong> · <strong>Building a product with no dev team</strong> · <strong>Growing a content brand on social</strong>
+          </span>
+          <button className="coming-notify">Notify me</button>
+        </div>
+
+        {/* Top Tools */}
+        <div className="section-divider" id="tools">
+          <span className="section-divider-label">Top tools</span>
+          <div className="section-divider-line"></div>
+          <span className="section-divider-count">40 tools reviewed</span>
+        </div>
+
+        <div className="tools-grid">
+          {[
+            { emoji: '✂️', name: 'Descript', tag: 'Video', tagClass: 'badge-video', desc: 'Edit video by editing the transcript. The fastest path from raw footage to polished, captioned YouTube content.', price: '$24/mo', pick: true },
+            { emoji: '🎯', name: 'Opus Clip', tag: 'Video', tagClass: 'badge-video', desc: 'Upload a long video, get 5 short clips with captions and a virality score. AI repurposing that actually works.', price: '$15/mo', pick: true },
+            { emoji: '🤖', name: 'Claude', tag: 'Writing', tagClass: 'badge-writing', desc: 'The best AI for long-form content, scripting, and strategic thinking. Our daily driver for everything written.', price: '$20/mo', pick: true },
+            { emoji: '🐝', name: 'beehiiv', tag: 'Newsletter', tagClass: 'badge-writing', desc: 'The newsletter platform built for growth. Monetisation tools and analytics built in from day one.', price: 'Free to start', pick: false },
+            { emoji: '🎨', name: 'Canva Pro', tag: 'Design', tagClass: 'badge-design', desc: 'Thumbnails, social graphics, presentations. Pro is worth it for Brand Kit alone — keeps everything consistent.', price: '$15/mo', pick: false },
+            { emoji: '⚡', name: 'Make', tag: 'Automate', tagClass: 'badge-ops', desc: 'Visual automation builder. More powerful than Zapier per dollar. Build workflows that would take a VA 10 hours/week.', price: 'Free · 1K ops', pick: false },
+            { emoji: '🔍', name: 'Perplexity', tag: 'Research', tagClass: 'badge-writing', desc: 'Search + AI synthesis with real sources cited. Research, competitor analysis, quick facts — faster than Google.', price: '$20/mo', pick: false },
+            { emoji: '📋', name: 'Notion', tag: 'Ops', tagClass: 'badge-ops', desc: 'Content calendar, CRM, SOPs, and knowledge base — all in one place. The operating system for a lean team.', price: 'Free · Plus $10/mo', pick: false },
+            { emoji: '🖼️', name: 'Figma', tag: 'Design', tagClass: 'badge-design', desc: 'The industry standard for product and brand design. Free tier is genuinely generous — good for most solo teams.', price: 'Free · Pro $15/mo', pick: false },
+          ].map((tool) => (
+            <a key={tool.name} href="#" className="tool-card">
+              <div className="tool-card-header">
+                <div className="tool-card-left">
+                  <div className="tool-logo">{tool.emoji}</div>
+                  <div>
+                    <div className="tool-name">{tool.name}</div>
+                    <span className={`tool-tag ${tool.tagClass}`}>{tool.tag}</span>
+                  </div>
+                </div>
+                {tool.pick && <span className="pick-star">⭐</span>}
+              </div>
+              <div className="tool-desc">{tool.desc}</div>
+              <div className="tool-card-footer">
+                <span className="tool-price">From <strong>{tool.price}</strong></span>
+                <span className="tool-arrow">→</span>
               </div>
             </a>
           ))}
         </div>
 
-        <div className="text-center mt-6">
-          <a href="#" className="text-[13px] text-muted hover:text-fg transition-colors">
-            View all {TOOLS.length} tools →
-          </a>
-        </div>
-
-        {/* ── Merchants ── */}
-        <div className="border-t border-border mt-14 pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6" id="merchants">
-          <div>
-            <h2 className="font-display text-[22px] text-fg mb-1">Want to be featured here?</h2>
-            <p className="text-[14px] text-muted">
-              Editorial placements for tools that fit lean creative businesses. Starting at $300/month.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <a
-              href="#"
-              className="inline-flex items-center gap-1.5 bg-brand text-white text-[13px] font-medium px-5 py-2.5 rounded-[7px] hover:bg-brand-h transition-colors no-underline"
-            >
-              Partner with us →
-            </a>
-            <a href="#" className="text-[13px] text-muted hover:text-fg transition-colors">
-              See how it works
-            </a>
-          </div>
+        <div className="view-all">
+          <a href="#">View all 40 tools →</a>
         </div>
 
       </div>
+
+      {/* Merchants CTA */}
+      <div className="bottom-bar" id="merchants">
+        <div className="bottom-bar-inner">
+          <div>
+            <h2>Want to be featured here?</h2>
+            <p>Editorial placements for tools that fit lean creative businesses. Starting at $300/month.</p>
+          </div>
+          <div className="bottom-bar-actions">
+            <a href="#" className="btn-primary">Partner with us →</a>
+            <a href="#" className="btn-ghost">See how it works</a>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-left">
+          <span className="footer-brand">HauseResource</span>
+          <div className="footer-links">
+            <a href="#">Guides</a>
+            <a href="#">Tools</a>
+            <a href="#">For Merchants</a>
+            <a href="https://hause.co">Hause.co</a>
+          </div>
+        </div>
+        <span className="footer-copy">© 2026 Hause Collective · Affiliate disclosure</span>
+      </footer>
     </>
   );
 }
