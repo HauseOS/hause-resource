@@ -1,22 +1,34 @@
 @import "tailwindcss";
 
+@source "../components/**/*.{tsx,ts}";
+@source "../app/**/*.{tsx,ts}";
+@source "../lib/**/*.{ts}";
+
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "DM Serif Display", Georgia, serif;
+  --font-family-sans: "Inter", system-ui, sans-serif;
+  --font-family-display: "DM Serif Display", Georgia, serif;
 
   /* Hause colour system */
-  --color-bg:          #0a0908;
-  --color-surface:     #100e0c;
-  --color-card:        #161210;
-  --color-card-2:      #1b1714;
-  --color-fg:          #ede8e3;
-  --color-muted:       #7a7470;
-  --color-muted-2:     #4a4644;
-  --color-border:      rgba(255,240,220,0.07);
-  --color-border-h:    rgba(255,240,220,0.14);
-  --color-brand:       #ff4e64;
-  --color-brand-h:     #ff6b7d;
-  --color-brand-glow:  rgba(255,78,100,0.12);
+  --color-bg:       #0a0908;
+  --color-surface:  #100e0c;
+  --color-card:     #161210;
+  --color-card-2:   #1b1714;
+  --color-fg:       #ede8e3;
+  --color-muted:    #7a7470;
+  --color-muted-2:  #4a4644;
+  --color-brand:    #ff4e64;
+  --color-brand-h:  #ff6b7d;
+
+  /* Semantic border tokens as named colors so border-border etc. work */
+  --color-border:   rgba(255,240,220,0.07);
+  --color-border-h: rgba(255,240,220,0.14);
+}
+
+/* Utility aliases the theme doesn't auto-generate */
+@layer utilities {
+  .font-display { font-family: "DM Serif Display", Georgia, serif; }
+  .shadow-glow  { box-shadow: 0 0 24px rgba(255,78,100,0.15); }
+  .shadow-card-h { box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,13 +37,12 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--color-bg);
   color: var(--color-fg);
-  font-family: var(--font-sans);
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 15px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-bg); }
 ::-webkit-scrollbar-thumb { background: var(--color-muted-2); border-radius: 3px; }
