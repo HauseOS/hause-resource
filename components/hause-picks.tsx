@@ -40,6 +40,7 @@ export function HausePicks({ tools }: { tools: Tool[] }) {
           {filteredTools.map(tool => (
             <Link key={tool.id} href={`/tools/${tool.id}`} className="pick-card">
               <div className="pick-card-top">
+                <div className="pick-icon">{tool.name.charAt(0)}</div>
                 <div className="pick-card-name-row">
                   <span className="pick-name">{tool.name}</span>
                   <span className={`pick-cat ${tool.tagClass}`}>{tool.category}</span>

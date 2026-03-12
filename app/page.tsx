@@ -79,6 +79,8 @@ export default function Home() {
         </div>
         <span className="footer-copy">&copy; 2026 Hause Collective &middot; Affiliate disclosure</span>
       </footer>
+
+      <div className="built-badge"><span className="built-badge-dot" />Built with intention</div>
     </>
   );
 }
