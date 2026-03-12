@@ -12,7 +12,7 @@ export const heroHeadline = "Your stack. No fluff.";
  */
 export const heroSub =
   "There are 400 AI tools and no one to tell you which three you actually need.\n" +
-  "We've done the testing. These are the ones worth paying for.";
+  "These are the ones worth paying for — tested, researched, and honestly reviewed.";
 
 /**
  * Search input placeholder. Mirrors how Priya actually searches —
@@ -44,7 +44,7 @@ export const merchantCtaHeadline = "Want to be featured here?";
  * $300/month keeps it self-selecting — low-quality tools won't bother.
  */
 export const merchantCtaDescription =
-  "We only list tools we'd actually recommend. If yours belongs here, we'll tell our audience.\n" +
+  "Only tools worth recommending get listed. If yours belongs here, the audience will hear about it.\n" +
   "Featured placements start at $300/month. No fluff, no fake reviews — just honest reach to the exact people who buy tools like yours.";
 
 /**

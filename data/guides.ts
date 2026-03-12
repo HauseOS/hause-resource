@@ -43,7 +43,7 @@ export const guides: Guide[] = [
     readTime: '6 min read',
     updatedDate: 'Mar 2026',
     hausePick: false,
-    status: 'live',
+    status: 'coming-soon',
     tldr: 'Start a profitable newsletter from nothing. Choose your platform (beehiiv for growth tools), write with AI assistance (Claude), and scale with ConvertKit when monetisation becomes a priority.',
   },
   {
