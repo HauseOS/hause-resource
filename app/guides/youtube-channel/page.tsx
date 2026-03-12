@@ -4,7 +4,21 @@ import { youtubeTldr } from '@/data/copy';
 
 export const metadata = {
   title: 'Running a YouTube Channel with 2 People — HauseResource',
-  description: 'The complete tool stack for a 2-person YouTube channel.',
+  description: 'The complete AI tool stack for a lean 2-person YouTube channel. Descript, Opus Clip, Claude, and more — with honest tradeoffs and real pricing.',
+  openGraph: {
+    title: 'Running a YouTube Channel with 2 People',
+    description: 'The complete AI tool stack for a lean 2-person YouTube channel. Editing, thumbnails, repurposing, and distribution — 7 tools, honest tradeoffs.',
+    url: 'https://hause-resource.vercel.app/guides/youtube-channel',
+    siteName: 'HauseResource',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Running a YouTube Channel with 2 People — HauseResource' }],
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Running a YouTube Channel with 2 People — HauseResource',
+    description: 'The complete AI tool stack for a lean 2-person YouTube channel.',
+    images: ['/og-image.png'],
+  },
 };
 
 export default function YouTubeGuide() {
@@ -72,10 +86,10 @@ export default function YouTubeGuide() {
               <li><a href="#editing">Editing</a></li>
               <li><a href="#repurposing">Repurposing</a></li>
               <li><a href="#thumbnails">Thumbnails</a></li>
-              <li><a href="#writing">Writing & scripts</a></li>
+              <li><a href="#writing">Writing &amp; scripts</a></li>
               <li><a href="#planning">Planning</a></li>
               <li><a href="#comparison">Comparison</a></li>
-              <li><a href="#verdict">What we&apos;d do</a></li>
+              <li><a href="#verdict">The verdict</a></li>
               <li><a href="#alternatives">Alternatives</a></li>
             </ul>
           </aside>
@@ -99,10 +113,10 @@ export default function YouTubeGuide() {
               <div className="tool-entry">
                 <div className="tool-entry-header">
                   <div className="tool-entry-left">
-                    <div className="tool-entry-logo">✂️</div>
+                    <div className="tool-entry-logo tool-initial">D</div>
                     <div className="tool-name-block">
                       <h3>Descript</h3>
-                      <div className="tool-category-text">Video & audio editing</div>
+                      <div className="tool-category-text">Video &amp; audio editing</div>
                     </div>
                   </div>
                   <span className="tool-verdict-badge verdict-pick">Hause Pick</span>
@@ -113,14 +127,14 @@ export default function YouTubeGuide() {
                 </div>
                 <div className="tool-entry-footer">
                   <div className="tool-pricing">Free tier available. Creator plan <strong>$24/month</strong>. Pro <strong>$40/month</strong>.</div>
-                  <a href="#" className="tool-link">Try Descript →</a>
+                  <a href="#" className="tool-link">Try Descript &rarr;</a>
                 </div>
               </div>
 
               <div className="tool-entry">
                 <div className="tool-entry-header">
                   <div className="tool-entry-left">
-                    <div className="tool-entry-logo">🎬</div>
+                    <div className="tool-entry-logo tool-initial">C</div>
                     <div className="tool-name-block">
                       <h3>CapCut for Desktop</h3>
                       <div className="tool-category-text">Alternative editor</div>
@@ -134,7 +148,7 @@ export default function YouTubeGuide() {
                 </div>
                 <div className="tool-entry-footer">
                   <div className="tool-pricing">Desktop version <strong>free</strong>. CapCut Pro <strong>$10/month</strong>.</div>
-                  <a href="#" className="tool-link">Try CapCut →</a>
+                  <a href="#" className="tool-link">Try CapCut &rarr;</a>
                 </div>
               </div>
             </div>
@@ -147,7 +161,7 @@ export default function YouTubeGuide() {
               <div className="tool-entry">
                 <div className="tool-entry-header">
                   <div className="tool-entry-left">
-                    <div className="tool-entry-logo">🎯</div>
+                    <div className="tool-entry-logo tool-initial">O</div>
                     <div className="tool-name-block">
                       <h3>Opus Clip</h3>
                       <div className="tool-category-text">AI video repurposing</div>
@@ -161,7 +175,7 @@ export default function YouTubeGuide() {
                 </div>
                 <div className="tool-entry-footer">
                   <div className="tool-pricing">Free tier (60 mins/month). Pro <strong>$15/month</strong> for 150 mins.</div>
-                  <a href="#" className="tool-link">Try Opus Clip →</a>
+                  <a href="#" className="tool-link">Try Opus Clip &rarr;</a>
                 </div>
               </div>
             </div>
@@ -169,7 +183,7 @@ export default function YouTubeGuide() {
             <div className="content-section" id="comparison">
               <div className="section-eyebrow">Comparison</div>
               <h2>Editing tools compared</h2>
-              <p>The four editors we&apos;ve used or researched for lean YouTube teams, across the criteria that actually matter.</p>
+              <p>The four editors researched for lean YouTube teams, across the criteria that actually matter.</p>
 
               <div className="compare-table-wrap">
                 <table className="compare-table">
@@ -186,23 +200,23 @@ export default function YouTubeGuide() {
                   <tbody>
                     <tr className="winner">
                       <td>Descript</td>
-                      <td><span className="tick">✓</span></td>
-                      <td><span className="tick">✓</span></td>
+                      <td><span className="tick">&#10003;</span></td>
+                      <td><span className="tick">&#10003;</span></td>
                       <td><span className="partial">~</span></td>
                       <td>Low</td>
                       <td>$24</td>
                     </tr>
                     <tr>
                       <td>CapCut</td>
-                      <td><span className="cross">✗</span></td>
-                      <td><span className="tick">✓</span></td>
-                      <td><span className="tick">✓</span></td>
+                      <td><span className="cross">&#10007;</span></td>
+                      <td><span className="tick">&#10003;</span></td>
+                      <td><span className="tick">&#10003;</span></td>
                       <td>Low</td>
                       <td>Free</td>
                     </tr>
                     <tr>
                       <td>Premiere Pro</td>
-                      <td><span className="cross">✗</span></td>
+                      <td><span className="cross">&#10007;</span></td>
                       <td><span className="partial">~</span></td>
                       <td><span className="partial">~</span></td>
                       <td>High</td>
@@ -210,9 +224,9 @@ export default function YouTubeGuide() {
                     </tr>
                     <tr>
                       <td>Final Cut Pro</td>
-                      <td><span className="cross">✗</span></td>
+                      <td><span className="cross">&#10007;</span></td>
                       <td><span className="partial">~</span></td>
-                      <td><span className="cross">✗</span></td>
+                      <td><span className="cross">&#10007;</span></td>
                       <td>Medium</td>
                       <td>$300 once</td>
                     </tr>
@@ -222,16 +236,16 @@ export default function YouTubeGuide() {
             </div>
 
             <div className="content-section" id="verdict">
-              <div className="section-eyebrow">What we&apos;d do</div>
-              <h2>If we were starting<br />this channel today</h2>
+              <div className="section-eyebrow">The verdict</div>
+              <h2>Starting this channel today</h2>
               <div className="opinion-block">
-                <div className="opinion-label">Our honest take — Hause Collective</div>
+                <div className="opinion-label">Honest take — Hause Collective</div>
                 <p>
-                  Start with Descript on the Creator plan. The transcript editing workflow alone saves 45 minutes per video. Use Opus Clip to pull short-form from every video — don&apos;t build a separate short-form workflow until you&apos;ve validated that your content works in long-form first.
+                  Start with Descript on the Creator plan. The transcript editing workflow alone saves 45 minutes per video. Use Opus Clip to pull short-form from every video — don&apos;t build a separate short-form workflow until the content is validated in long-form first.
                   <br /><br />
-                  <em>Add Canva Pro for thumbnails once you&apos;ve shipped 10 videos and found your visual style — not before. Too many creators obsess over thumbnails before they&apos;ve figured out what they&apos;re actually saying.</em>
+                  <em>Add Canva Pro for thumbnails once 10 videos are shipped and the visual style is locked — not before. Too many creators obsess over thumbnails before they&apos;ve figured out what they&apos;re actually saying.</em>
                   <br /><br />
-                  The mistake we see: using five tools from day one and mastering none. Lock in Descript + Opus Clip for 90 days. Then layer in the rest.
+                  The common mistake: using five tools from day one and mastering none. Lock in Descript + Opus Clip for 90 days. Then layer in the rest.
                 </p>
               </div>
             </div>
@@ -242,12 +256,12 @@ export default function YouTubeGuide() {
               <p>These tools are good. They just didn&apos;t win for this specific situation.</p>
               <div className="alt-list">
                 {[
-                  { emoji: '🎞️', name: 'Adobe Premiere Pro', why: "Industry standard for a reason — but the learning curve is steep for a 2-person team with no dedicated editor. $60/month for features you won't use for 80% of YouTube content." },
-                  { emoji: '🎥', name: 'Riverside.fm', why: "Excellent for podcast-first creators. If your YouTube content is interview-based, Riverside's local recording quality beats everything. Doesn't make the cut here because it's a recording tool, not an editing workflow." },
-                  { emoji: '📱', name: 'Submagic', why: "Great auto-captions for short-form. But Opus Clip does captions plus clip selection plus virality scoring. Submagic loses unless you're doing all your own clip selection manually." },
+                  { initial: 'A', name: 'Adobe Premiere Pro', why: "Industry standard for a reason — but the learning curve is steep for a 2-person team with no dedicated editor. $60/month for features most YouTube content won't use." },
+                  { initial: 'R', name: 'Riverside.fm', why: "Excellent for podcast-first creators. If YouTube content is interview-based, Riverside's local recording quality beats everything. Doesn't make the cut here because it's a recording tool, not an editing workflow." },
+                  { initial: 'S', name: 'Submagic', why: "Great auto-captions for short-form. But Opus Clip does captions plus clip selection plus virality scoring. Submagic loses unless all clip selection is done manually." },
                 ].map((alt) => (
                   <div key={alt.name} className="alt-entry">
-                    <div className="alt-logo">{alt.emoji}</div>
+                    <div className="alt-logo tool-initial">{alt.initial}</div>
                     <div>
                       <div className="alt-name">{alt.name}</div>
                       <div className="alt-why">{alt.why}</div>
@@ -263,11 +277,11 @@ export default function YouTubeGuide() {
           <aside className="right-rail">
             <div className="quick-pick">
               <div className="quick-pick-header">
-                <div className="quick-pick-label">⭐ Hause Pick — Editing</div>
+                <div className="quick-pick-label">Hause Pick — Editing</div>
               </div>
               <div className="quick-pick-body">
                 <div className="qp-tool">
-                  <div className="qp-logo">✂️</div>
+                  <div className="qp-logo tool-initial">D</div>
                   <div>
                     <div className="qp-name">Descript</div>
                     <div className="qp-category">Video editing</div>
@@ -279,27 +293,27 @@ export default function YouTubeGuide() {
                   <div className="qp-price-row"><span className="qp-price-label">Creator</span><span className="qp-price-val">$24/mo</span></div>
                   <div className="qp-price-row"><span className="qp-price-label">Pro</span><span className="qp-price-val">$40/mo</span></div>
                 </div>
-                <a href="#" className="qp-cta">Start free trial →</a>
-                <div className="qp-disclosure">Affiliate link · We earn a commission</div>
+                <a href="#" className="qp-cta">Start free trial &rarr;</a>
+                <div className="qp-disclosure">Affiliate link</div>
               </div>
             </div>
 
             <div className="rail-section">
               <div className="rail-label">All tools in this guide</div>
               {[
-                { emoji: '✂️', name: 'Descript', cat: 'Editing' },
-                { emoji: '🎯', name: 'Opus Clip', cat: 'Repurposing' },
-                { emoji: '🎨', name: 'Canva Pro', cat: 'Thumbnails' },
-                { emoji: '🤖', name: 'Claude', cat: 'Scripting & ideation' },
-                { emoji: '📋', name: 'Notion', cat: 'Content planning' },
+                { initial: 'D', name: 'Descript', cat: 'Editing' },
+                { initial: 'O', name: 'Opus Clip', cat: 'Repurposing' },
+                { initial: 'C', name: 'Canva Pro', cat: 'Thumbnails' },
+                { initial: 'C', name: 'Claude', cat: 'Scripting & ideation' },
+                { initial: 'N', name: 'Notion', cat: 'Content planning' },
               ].map((t) => (
                 <a key={t.name} href="#" className="rail-tool">
-                  <div className="rail-tool-logo">{t.emoji}</div>
+                  <div className="rail-tool-logo tool-initial">{t.initial}</div>
                   <div>
                     <div className="rail-tool-name">{t.name}</div>
                     <div className="rail-tool-cat">{t.cat}</div>
                   </div>
-                  <span className="rail-tool-arrow">→</span>
+                  <span className="rail-tool-arrow">&rarr;</span>
                 </a>
               ))}
             </div>
