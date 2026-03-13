@@ -192,6 +192,28 @@ export default async function GuidePage({ params }: Props) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: `${guide.title} ${guide.subtitle}`,
+            description: guide.description,
+            url: `https://hause-resource.vercel.app/guides/${guide.id}`,
+            dateModified: new Date().toISOString(),
+            author: { '@type': 'Organization', name: 'Hause Collective', url: 'https://hause.co' },
+            publisher: { '@type': 'Organization', name: 'HauseResource', url: 'https://hause-resource.vercel.app' },
+            ...(validRailTools.length > 0 && {
+              mentions: validRailTools.map(t => ({
+                '@type': 'SoftwareApplication',
+                name: t.name,
+                url: `https://hause-resource.vercel.app/tools/${t.id}`,
+              })),
+            }),
+          }),
+        }}
+      />
       <Nav />
       <div className="page">
         <div className="breadcrumb">

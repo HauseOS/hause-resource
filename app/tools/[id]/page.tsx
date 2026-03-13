@@ -48,6 +48,29 @@ export default async function ToolPage({ params }: Props) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: tool.name,
+            description: tool.description,
+            url: `https://hause-resource.vercel.app/tools/${tool.id}`,
+            offers: tool.pricing_numeric > 0 ? {
+              '@type': 'Offer',
+              price: tool.pricing_numeric,
+              priceCurrency: 'USD',
+              description: tool.pricing,
+            } : undefined,
+            review: tool.verdict ? {
+              '@type': 'Review',
+              reviewBody: tool.verdict,
+              author: { '@type': 'Organization', name: 'Hause Collective' },
+            } : undefined,
+          }),
+        }}
+      />
       <Nav />
       <div className="page">
 
