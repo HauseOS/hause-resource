@@ -94,7 +94,7 @@ export default async function ToolPage({ params }: Props) {
 
         <div className="tool-page-c">
 
-          {/* Situations / context tags */}
+          {/* Situation tags */}
           {tool.situations && tool.situations.length > 0 && (
             <div className="tool-situations">
               {tool.situations.map((s) => (
@@ -166,9 +166,7 @@ export default async function ToolPage({ params }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {tool.audience_discount
-                    ? `Try ${tool.name} — ${tool.audience_discount.split(" ").slice(0, 2).join(" ")} →`
-                    : `Try ${tool.name} →`}
+                  Try {tool.name}{tool.audience_discount ? ` — ${tool.audience_discount.split(" ").slice(0, 3).join(" ")}` : ""} →
                 </a>
                 <span className="cta-disclosure">
                   Affiliate link · We earn a commission if you subscribe
@@ -195,9 +193,7 @@ export default async function ToolPage({ params }: Props) {
           <div className="footer-links">
             <a href="/#top">Guides</a>
             <a href="/#picks">Picks</a>
-            <a
-              href="mailto:hello@hause.co?subject=HauseResource Merchant Partnership"
-            >
+            <a href="mailto:hello@hause.co?subject=HauseResource Merchant Partnership">
               For Merchants
             </a>
             <a href="https://hause.co">Hause.co</a>
