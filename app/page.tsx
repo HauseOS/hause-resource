@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { Nav } from '@/components/nav';
 import { HausePicks } from '@/components/hause-picks';
-import { tools } from '@/data/tools';
-import { guides } from '@/data/guides';
+import { getTools, getGuides } from '@/lib/resource-data';
 
-export default function Home() {
+export const revalidate = 300;
+
+export default async function Home() {
+  const [tools, guides] = await Promise.all([getTools(), getGuides()]);
   const comingSoonGuides = guides.filter(g => g.status === 'coming-soon');
 
   return (
@@ -30,16 +32,18 @@ export default function Home() {
           <p className="situations-label">Choose a situation</p>
 
           <div className="situations-grid">
-            {/* Live guide */}
-            <Link href="/guides/youtube-channel" className="sit-card sit-live">
-              <span className="sit-live-badge">Live</span>
-              <div className="sit-card-title">Running a YouTube channel with 2 people</div>
-              <div className="sit-card-desc">Editing, thumbnails, repurposing, distribution. The complete stack for a lean video business.</div>
-              <div className="sit-card-footer">
-                <span className="sit-card-meta">7 tools reviewed</span>
-                <span className="sit-card-cta">Read guide &rarr;</span>
-              </div>
-            </Link>
+            {/* Live guides */}
+            {guides.filter(g => g.status === 'live').map(guide => (
+              <Link key={guide.id} href={`/guides/${guide.id}`} className="sit-card sit-live">
+                <span className="sit-live-badge">Live</span>
+                <div className="sit-card-title">{guide.title} {guide.subtitle}</div>
+                <div className="sit-card-desc">{guide.description}</div>
+                <div className="sit-card-footer">
+                  {guide.tool_count > 0 && <span className="sit-card-meta">{guide.tool_count} tools reviewed</span>}
+                  <span className="sit-card-cta">Read guide &rarr;</span>
+                </div>
+              </Link>
+            ))}
 
             {/* Coming-soon cards */}
             {comingSoonGuides.map(guide => (

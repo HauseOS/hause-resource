@@ -2,9 +2,21 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import type { Tool } from '@/data/tools';
+import type { Tool } from '@/lib/resource-data';
 
 const ALL_CATEGORIES = ['All', 'Video', 'Writing', 'Design', 'Automate', 'Research', 'Ops'] as const;
+
+function getCategoryClass(category: string): string {
+  const map: Record<string, string> = {
+    Video: "badge-video",
+    Writing: "badge-writing",
+    Design: "badge-design",
+    Automate: "badge-automate",
+    Research: "badge-research",
+    Ops: "badge-ops",
+  };
+  return map[category] || "badge-video";
+}
 
 export function HausePicks({ tools }: { tools: Tool[] }) {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -43,15 +55,15 @@ export function HausePicks({ tools }: { tools: Tool[] }) {
                 <div className="pick-icon">{tool.name.charAt(0)}</div>
                 <div className="pick-card-name-row">
                   <span className="pick-name">{tool.name}</span>
-                  <span className={`pick-cat ${tool.tagClass}`}>{tool.category}</span>
+                  <span className={`pick-cat ${getCategoryClass(tool.category)}`}>{tool.category}</span>
                 </div>
-                {tool.hausePick && <span className="pick-star">&#9733;</span>}
+                {tool.hause_pick && <span className="pick-star">&#9733;</span>}
               </div>
               <p className="pick-desc">{tool.description}</p>
               <div className="pick-meta-rows">
                 <div className="pick-meta-row">
                   <span className="pick-meta-label">Best for</span>
-                  <span className="pick-meta-val">{tool.bestFor}</span>
+                  <span className="pick-meta-val">{tool.best_for}</span>
                 </div>
                 <div className="pick-meta-row">
                   <span className="pick-meta-label">Replaces</span>
