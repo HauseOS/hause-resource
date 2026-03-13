@@ -6,20 +6,23 @@ export type Tool = {
   name: string;
   category: string;
   description: string;
-  best_for: string;
-  replaces: string;
-  basis: string;
+  best_for?: string;
+  replaces?: string;
+  basis?: string;
   pricing: string;
   pricing_numeric: number;
-  affiliate_url: string;
+  affiliate_url?: string | null;
   affiliate_note?: string;
   promo_code?: string;
   hause_pick: boolean;
-  verdict: string;
+  verdict?: string;
   youtube_id?: string;
   logo_url?: string;
   published: boolean;
   sort_order: number;
+  situations?: string[];
+  skip_if?: string;
+  audience_discount?: string | null;
 };
 
 export type GuideSection = {
